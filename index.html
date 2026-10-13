@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0b3d6e">
+<title>Consulta de Ponto · SGM/TAQ</title>
+<style>
+:root{--azul:#0b3d6e;--azul2:#1665a8;--bg:#f2f5fa;--card:#fff;--txt:#1f2937;--sub:#6b7280;--bord:#e5e9f0;
+--pos:#059669;--neg:#dc2626;--posbg:#d1fae5;--negbg:#fee2e2;--warn:#c2410c;--warnbg:#ffedd5;--r:16px}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:15px}
+button{font:inherit;cursor:pointer}
+.hide{display:none!important}
+.pos{color:var(--pos)}.neg{color:var(--neg)}.neu{color:var(--txt)}
+/* ---------- login ---------- */
+#login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;
+background:radial-gradient(circle at 20% 10%,#2b7cc4 0,transparent 45%),linear-gradient(160deg,#0b3d6e,#082a4d)}
+.lbox{background:#fff;border-radius:22px;padding:30px 26px;width:100%;max-width:380px;box-shadow:0 20px 50px rgba(0,0,0,.3)}
+.logo{width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,var(--azul),var(--azul2));display:grid;place-items:center;margin-bottom:14px}
+.lbox h1{margin:0 0 4px;font-size:22px}.lbox p{margin:0 0 22px;color:var(--sub);font-size:14px}
+label{display:block;font-size:13px;font-weight:600;margin:12px 0 6px;color:#374151}
+input,select{width:100%;padding:13px 14px;border:1.5px solid var(--bord);border-radius:12px;font-size:16px;background:#fff;color:var(--txt)}
+input:focus,select:focus{outline:none;border-color:var(--azul2);box-shadow:0 0 0 3px rgba(22,101,168,.15)}
+.pw{position:relative}.pw button{position:absolute;right:8px;top:50%;transform:translateY(-50%);border:0;background:none;color:var(--sub);padding:6px}
+.btn{width:100%;margin-top:20px;padding:14px;border:0;border-radius:12px;background:linear-gradient(135deg,var(--azul),var(--azul2));color:#fff;font-weight:700;font-size:16px}
+.btn:disabled{opacity:.6}
+.erro{color:var(--neg);font-size:13.5px;margin-top:12px;min-height:18px}
+.nota{font-size:12px;color:var(--sub);margin-top:18px;text-align:center}
+/* ---------- app ---------- */
+header.top{position:sticky;top:0;z-index:10;background:linear-gradient(135deg,var(--azul),var(--azul2));color:#fff;
+padding:12px 16px calc(12px);padding-top:max(12px,env(safe-area-inset-top));box-shadow:0 2px 10px rgba(0,0,0,.15)}
+.toprow{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:12px}
+.toprow .t{flex:1;min-width:0}.toprow b{display:block;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.toprow small{opacity:.85;font-size:12px}
+.sair{background:rgba(255,255,255,.15);border:0;color:#fff;border-radius:10px;padding:8px 12px;font-size:13px}
+.tabs{max-width:1100px;margin:10px auto 0;display:flex;gap:6px}
+.tab{flex:1;border:0;border-radius:10px;padding:9px;background:rgba(255,255,255,.12);color:#fff;font-weight:600;font-size:14px}
+.tab.on{background:#fff;color:var(--azul)}
+main{max-width:1100px;margin:0 auto;padding:16px 14px 40px}
+.card{background:var(--card);border-radius:var(--r);padding:16px;box-shadow:0 1px 3px rgba(16,24,40,.06),0 1px 2px rgba(16,24,40,.04);margin-bottom:14px}
+.card h2{margin:0 0 12px;font-size:15px;color:var(--azul);display:flex;align-items:center;justify-content:space-between;gap:8px}
+.card h2 small{font-weight:500;color:var(--sub);font-size:12px}
+.pessoa{display:flex;gap:12px;align-items:center}
+.av{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#dbeafe,#bfdbfe);color:var(--azul);display:grid;place-items:center;font-weight:800;flex:none}
+.pessoa b{font-size:16px}.pessoa div div{color:var(--sub);font-size:13px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+.kpi{background:var(--card);border-radius:var(--r);padding:14px;box-shadow:0 1px 3px rgba(16,24,40,.06)}
+.kpi small{display:block;color:var(--sub);font-size:11.5px;text-transform:uppercase;letter-spacing:.04em;font-weight:600}
+.kpi b{display:block;font-size:26px;margin-top:6px;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.kpi span{font-size:12px;color:var(--sub)}
+.kpi.dest{background:linear-gradient(135deg,var(--azul),var(--azul2));color:#fff}.kpi.dest small,.kpi.dest span{color:rgba(255,255,255,.8)}
+.kpi.dest b{color:#fff}
+.nav{display:flex;align-items:center;gap:8px}
+.nav button{width:40px;height:40px;border-radius:12px;border:1.5px solid var(--bord);background:#fff;font-size:18px;color:var(--azul)}
+.nav button:disabled{opacity:.35}
+.nav .lab{flex:1;text-align:center;font-weight:700}
+.nav .lab small{display:block;font-weight:500;color:var(--sub);font-size:12px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;justify-content:center}
+.chip{font-size:12px;padding:4px 10px;border-radius:999px;background:#eef2f7;color:#374151;font-weight:600}
+.chip.w{background:var(--warnbg);color:var(--warn)}.chip.p{background:var(--posbg);color:var(--pos)}.chip.n{background:var(--negbg);color:var(--neg)}
+.dias{display:flex;flex-direction:column;gap:8px}
+.dia{border:1px solid var(--bord);border-radius:14px;padding:11px 12px;display:grid;grid-template-columns:62px 1fr auto;gap:10px;align-items:center}
+.dia.fds{background:#fafbfc;opacity:.7}.dia.al{border-color:#fdba74;background:#fffaf5}
+.dt b{display:block;font-size:17px}.dt span{font-size:12px;color:var(--sub);text-transform:uppercase;font-weight:700}
+.bat{font-variant-numeric:tabular-nums;font-size:14px}
+.bar{position:relative;height:8px;background:#eef2f7;border-radius:6px;margin-top:7px}
+.bar i{position:absolute;top:0;bottom:0;border-radius:6px;background:linear-gradient(90deg,#60a5fa,var(--azul2))}
+.bar em{position:absolute;top:-3px;bottom:-3px;width:1px;background:#cbd5e1}
+.res{text-align:right;font-variant-numeric:tabular-nums}.res b{display:block;font-size:15px}.res span{font-size:12px;color:var(--sub)}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:#eef2f7}
+.tag.w{background:var(--warnbg);color:var(--warn)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+svg text{font-family:inherit}
+.tip{position:fixed;pointer-events:none;background:#111827;color:#fff;font-size:12.5px;padding:7px 10px;border-radius:8px;z-index:50;transform:translate(-50%,-115%);white-space:nowrap}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th{text-align:left;font-size:12px;color:var(--sub);font-weight:600;padding:8px;border-bottom:1px solid var(--bord)}
+td{padding:9px 8px;border-bottom:1px solid #f1f3f6;font-variant-numeric:tabular-nums}
+.r{text-align:right}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.tools input{flex:1;min-width:160px;padding:10px 12px;font-size:15px}
+.tools select{width:auto;padding:10px 12px;font-size:14px}
+.sbtn{border:1.5px solid var(--bord);background:#fff;border-radius:12px;padding:10px 14px;font-size:14px;font-weight:600;color:var(--azul)}
+.equipe{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.mem{background:#fff;border-radius:var(--r);padding:14px;box-shadow:0 1px 3px rgba(16,24,40,.06);border:1.5px solid transparent;text-align:left;width:100%;transition:.15s}
+.mem:hover{border-color:#bfdbfe;transform:translateY(-1px)}
+.mem .h{display:flex;gap:10px;align-items:center;margin-bottom:10px}.mem .h b{font-size:14.5px;display:block}
+.mem .h span{font-size:12px;color:var(--sub)}
+.mem .n{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
+.mem .n div small{display:block;font-size:11px;color:var(--sub)}.mem .n div b{font-size:16px;font-variant-numeric:tabular-nums}
+.alertas li{padding:8px 0;border-bottom:1px solid #f1f3f6;font-size:14px;list-style:none}
+.alertas{margin:0;padding:0}
+.leg{font-size:12px;color:var(--sub);line-height:1.6;margin-top:10px}
+.selcol{margin-bottom:14px}
+@media(max-width:820px){.kpis{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}.kpi b{font-size:22px}}
+@media(max-width:380px){.dia{grid-template-columns:52px 1fr auto}.kpi b{font-size:20px}}
+</style>
+</head>
+<body>
+
+<!-- ================= LOGIN ================= -->
+<section id="login">
+  <form class="lbox" id="flogin" autocomplete="on">
+    <div class="logo"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+    <h1>Consulta de Ponto · SGM/TAQ</h1>
+    <p>Entre com o login e a senha que você recebeu.</p>
+    <label for="u">Login</label>
+    <input id="u" name="username" autocomplete="username" autocapitalize="none" inputmode="text" required>
+    <label for="s">Senha</label>
+    <div class="pw"><input id="s" name="password" type="password" autocomplete="current-password" required>
+      <button type="button" id="ver" aria-label="Mostrar senha">👁</button></div>
+    <button class="btn" id="entrar">Entrar</button>
+    <div class="erro" id="erro"></div>
+    <div class="nota">🔒 Seus dados são descriptografados apenas neste aparelho.</div>
+  </form>
+</section>
+
+<!-- ================= APP ================= -->
+<section id="app" class="hide">
+  <header class="top">
+    <div class="toprow">
+      <div class="t"><b id="hNome"></b><small id="hAtu"></small></div>
+      <button class="sair" id="sair">Sair</button>
+    </div>
+    <div class="tabs hide" id="tabs">
+      <button class="tab on" data-v="equipe">Equipe</button>
+      <button class="tab" data-v="ind">Individual</button>
+    </div>
+  </header>
+  <main>
+    <div id="vEquipe" class="hide"></div>
+    <div id="vInd" class="hide"></div>
+  </main>
+</section>
+<div class="tip hide" id="tip"></div>
+
+<script>
+"use strict";
+/* ================= utilidades ================= */
+const $ = s => document.querySelector(s);
+const DS = ["dom","seg","ter","qua","qui","sex","sáb"];
+const MES = ["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
+const fmt = (m, sinal = true) => {
+  if (m === null || m === undefined) return "—";
+  const s = m < 0 ? "-" : (sinal ? "+" : ""); m = Math.abs(m);
+  return s + String(Math.floor(m / 60)).padStart(2, "0") + ":" + String(m % 60).padStart(2, "0");
+};
+const cls = m => (m || 0) > 0 ? "pos" : (m || 0) < 0 ? "neg" : "neu";
+const esc = t => String(t).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const dParse = s => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); };
+const dIso = d => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0");
+const dBr = (d, ano) => String(d.getDate()).padStart(2, "0") + "/" + String(d.getMonth() + 1).padStart(2, "0") + (ano ? "/" + d.getFullYear() : "");
+const segunda = d => { const x = new Date(d); x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); return x; };
+const addD = (d, n) => { const x = new Date(d); x.setDate(x.getDate() + n); return x; };
+const nomeBonito = n => n.toLowerCase().split(" ").map(p => ["de","da","do","das","dos","e"].includes(p) ? p : p.charAt(0).toUpperCase() + p.slice(1)).join(" ");
+const iniciais = n => { const p = n.split(" ").filter(x => x.length > 2); return (p[0][0] + (p.length > 1 ? p[p.length - 1][0] : "")).toUpperCase(); };
+const TIPO = {feriado:"Feriado", folga_banco:"Folga (banco)", ferias:"Férias/afast.", sem_registro:"Sem registro", incompleto:"Incompleto"};
+
+/* ================= criptografia (WebCrypto) ================= */
+const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+async function sha256hex(t) {
+  const h = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(t));
+  return [...new Uint8Array(h)].map(b => b.toString(16).padStart(2, "0")).join("");
+}
+async function entrar(login, senha) {
+  const nome = (await sha256hex("ponto|" + login.trim().toLowerCase())).slice(0, 40);
+  const r = await fetch("dados/" + nome + ".json", {cache: "no-store"});
+  if (!r.ok) throw new Error("login");
+  const pac = await r.json();
+  const base = await crypto.subtle.importKey("raw", new TextEncoder().encode(senha), "PBKDF2", false, ["deriveKey"]);
+  const chave = await crypto.subtle.deriveKey({name: "PBKDF2", salt: b64(pac.sal), iterations: pac.it, hash: "SHA-256"},
+    base, {name: "AES-GCM", length: 256}, false, ["decrypt"]);
+  try {
+    const pt = await crypto.subtle.decrypt({name: "AES-GCM", iv: b64(pac.iv)}, chave, b64(pac.dados));
+    return JSON.parse(new TextDecoder().decode(pt));
+  } catch (e) { throw new Error("senha"); }
+}
+
+/* ================= modelo de dados ================= */
+function preparar(c) {
+  c.dias.forEach(d => d.dt = dParse(d.d));
+  const sem = new Map();
+  c.dias.forEach(d => { const k = dIso(segunda(d.dt)); if (!sem.has(k)) sem.set(k, []); sem.get(k).push(d); });
+  c.semanas = [...sem.entries()].sort().map(([k, ds]) => {
+    const ini = dParse(k);
+    const bancoFim = [...ds].reverse().find(d => d.bh !== null);
+    return { ini, fim: addD(ini, 6), dias: ds, completa: ds.length === 7,
+      saldo: ds.reduce((a, d) => a + (d.s || 0), 0),
+      trab: ds.reduce((a, d) => a + (d.w || 0), 0),
+      ndias: ds.filter(d => d.t === "trabalhado" || d.t === "incompleto").length,
+      banco: bancoFim ? bancoFim.bh : null,
+      alertas: ds.filter(d => d.a),
+      cont: t => ds.filter(d => d.t === t).length };
+  });
+  const mes = new Map();
+  c.dias.forEach(d => { const k = d.d.slice(0, 7); if (!mes.has(k)) mes.set(k, []); mes.get(k).push(d); });
+  c.meses = [...mes.entries()].sort().map(([k, ds]) => ({ k, ds,
+    saldo: ds.reduce((a, d) => a + (d.s || 0), 0), trab: ds.reduce((a, d) => a + (d.w || 0), 0),
+    ndias: ds.filter(d => d.t === "trabalhado" || d.t === "incompleto").length,
+    banco: [...ds].reverse().find(d => d.bh !== null)?.bh ?? null,
+    folgas: ds.filter(d => d.t === "folga_banco").length, alertas: ds.filter(d => d.a).length }));
+  const ult = [...c.dias].reverse().find(d => d.bh !== null);
+  c.bancoAtual = ult ? ult.bh : null;
+  c.ultimoDia = c.dias.length ? c.dias[c.dias.length - 1].dt : null;
+  return c;
+}
+
+/* ================= estado ================= */
+let DADOS = null, ATUAL = null, iSem = 0, timerInat = null;
+
+/* ================= login / logout ================= */
+$("#ver").onclick = () => { const s = $("#s"); s.type = s.type === "password" ? "text" : "password"; };
+$("#flogin").onsubmit = async ev => {
+  ev.preventDefault();
+  const b = $("#entrar"); b.disabled = true; b.textContent = "Verificando…"; $("#erro").textContent = "";
+  try {
+    DADOS = await entrar($("#u").value, $("#s").value);
+    DADOS.colaboradores.forEach(preparar);
+    $("#s").value = "";
+    iniciarApp();
+  } catch (e) {
+    $("#erro").textContent = e.message === "login" || e.message === "senha"
+      ? "Login ou senha incorretos." : "Não foi possível carregar os dados. Verifique a conexão.";
+  }
+  b.disabled = false; b.textContent = "Entrar";
+};
+function sair() { DADOS = null; ATUAL = null; $("#app").classList.add("hide"); $("#login").classList.remove("hide");
+  $("#vEquipe").innerHTML = ""; $("#vInd").innerHTML = ""; window.scrollTo(0, 0); }
+$("#sair").onclick = sair;
+["click", "touchstart", "keydown", "scroll"].forEach(e => addEventListener(e, () => {
+  clearTimeout(timerInat); if (DADOS) timerInat = setTimeout(sair, 15 * 60 * 1000); }, {passive: true}));
+
+function iniciarApp() {
+  $("#login").classList.add("hide"); $("#app").classList.remove("hide");
+  $("#hAtu").textContent = "Atualizado em " + DADOS.atualizado;
+  if (DADOS.perfil === "admin") {
+    $("#hNome").textContent = "Painel do fiscal";
+    $("#tabs").classList.remove("hide");
+    document.querySelectorAll(".tab").forEach(t => t.onclick = () => mostrar(t.dataset.v));
+    ATUAL = DADOS.colaboradores[0];
+    mostrar("equipe");
+  } else {
+    $("#hNome").textContent = nomeBonito(DADOS.nome);
+    ATUAL = DADOS.colaboradores[0];
+    mostrar("ind");
+  }
+  clearTimeout(timerInat); timerInat = setTimeout(sair, 15 * 60 * 1000);
+}
+function mostrar(v) {
+  document.querySelectorAll(".tab").forEach(t => t.classList.toggle("on", t.dataset.v === v));
+  $("#vEquipe").classList.toggle("hide", v !== "equipe");
+  $("#vInd").classList.toggle("hide", v !== "ind");
+  if (v === "equipe") renderEquipe(); else { iSem = ATUAL.semanas.length - 1; renderInd(); }
+  window.scrollTo(0, 0);
+}
+
+/* ================= tooltip ================= */
+const tip = $("#tip");
+function ligarTip(root) {
+  root.querySelectorAll("[data-tip]").forEach(el => {
+    const on = e => { const p = e.touches ? e.touches[0] : e; tip.innerHTML = el.dataset.tip;
+      tip.style.left = p.clientX + "px"; tip.style.top = p.clientY + "px"; tip.classList.remove("hide"); };
+    el.addEventListener("mousemove", on); el.addEventListener("touchstart", on, {passive: true});
+    el.addEventListener("mouseleave", () => tip.classList.add("hide"));
+    el.addEventListener("touchend", () => setTimeout(() => tip.classList.add("hide"), 1200));
+  });
+}
+
+/* ================= gráficos SVG ================= */
+function grafSemanas(c, sel) {
+  const S = c.semanas.slice(-12), off = c.semanas.length - S.length;
+  const W = 640, H = 210, pad = 10, top = 26, base = H / 2 + 5;
+  const max = Math.max(60, ...S.map(s => Math.abs(s.saldo)));
+  const lw = (W - 2 * pad) / S.length;
+  let g = `<svg viewBox="0 0 ${W} ${H + 24}" width="100%" style="touch-action:pan-y">`;
+  g += `<line x1="${pad}" x2="${W - pad}" y1="${base}" y2="${base}" stroke="#cbd5e1"/>`;
+  S.forEach((s, i) => {
+    const h = Math.abs(s.saldo) / max * (H / 2 - top), x = pad + i * lw + lw * .16, w = lw * .68;
+    const y = s.saldo >= 0 ? base - h : base, idx = off + i, on = idx === sel;
+    const cor = s.saldo >= 0 ? (on ? "#047857" : "#34d399") : (on ? "#b91c1c" : "#f87171");
+    g += `<g data-i="${idx}" style="cursor:pointer" data-tip="Semana ${dBr(s.ini)}–${dBr(s.fim)}<br>Saldo <b>${fmt(s.saldo)}</b> · Banco ${fmt(s.banco)}">
+      <rect x="${x - lw * .16}" y="0" width="${lw}" height="${H + 24}" fill="${on ? "#eff6ff" : "transparent"}" rx="8"/>
+      <rect x="${x}" y="${y}" width="${w}" height="${Math.max(h, 2)}" rx="5" fill="${cor}"/>
+      <text x="${x + w / 2}" y="${s.saldo >= 0 ? y - 6 : y + h + 15}" font-size="15" text-anchor="middle" fill="#374151" font-weight="${on ? 700 : 500}">${fmt(s.saldo)}</text>
+      <text x="${x + w / 2}" y="${H + 16}" font-size="14" text-anchor="middle" fill="#6b7280">${dBr(s.ini)}</text></g>`;
+  });
+  return g + "</svg>";
+}
+function grafBanco(c) {
+  const P = c.dias.filter(d => d.bh !== null).slice(-120);
+  if (P.length < 2) return "<p class='leg'>Dados insuficientes.</p>";
+  const W = 640, H = 200, pl = 8, pr = 8, pt = 16, pb = 26;
+  const vals = P.map(d => d.bh), mn = Math.min(...vals), mx = Math.max(...vals), rg = Math.max(30, mx - mn);
+  const X = i => pl + i * (W - pl - pr) / (P.length - 1), Y = v => pt + (1 - (v - mn) / rg) * (H - pt - pb);
+  const pts = P.map((d, i) => `${X(i).toFixed(1)},${Y(d.bh).toFixed(1)}`).join(" ");
+  let g = `<svg viewBox="0 0 ${W} ${H}" width="100%"><defs><linearGradient id="gb" x1="0" x2="0" y1="0" y2="1">
+    <stop offset="0" stop-color="#1665a8" stop-opacity=".25"/><stop offset="1" stop-color="#1665a8" stop-opacity="0"/></linearGradient></defs>
+    <polygon points="${X(0)},${H - pb} ${pts} ${X(P.length - 1)},${H - pb}" fill="url(#gb)"/>
+    <polyline points="${pts}" fill="none" stroke="#1665a8" stroke-width="2.5" stroke-linejoin="round"/>
+    <text x="${pl}" y="${H - 6}" font-size="14" fill="#6b7280">${dBr(P[0].dt, true)}</text>
+    <text x="${W - pr}" y="${H - 6}" font-size="14" fill="#6b7280" text-anchor="end">${dBr(P[P.length - 1].dt, true)}</text>
+    <text x="${W - pr}" y="${Y(P[P.length - 1].bh) - 8}" font-size="16" font-weight="700" fill="#0b3d6e" text-anchor="end">${fmt(P[P.length - 1].bh)}</text>`;
+  const lw = (W - pl - pr) / P.length;
+  P.forEach((d, i) => g += `<rect x="${X(i) - lw / 2}" y="0" width="${lw}" height="${H}" fill="transparent"
+    data-tip="${dBr(d.dt, true)} (${DS[d.dt.getDay()]})<br>Banco <b>${fmt(d.bh)}</b> · dia ${fmt(d.s)}"/>`);
+  return g + "</svg>";
+}
+function barraDia(d) {
+  if (!d.b.length) return "";
+  const p = m => (m / 1440 * 100).toFixed(2) + "%";
+  let s = `<div class="bar"><em style="left:25%"></em><em style="left:50%"></em><em style="left:75%"></em>`;
+  for (let i = 0; i + 1 < d.b.length; i += 2) {
+    const [h1, m1] = d.b[i].slice(0, 5).split(":").map(Number), [h2, m2] = d.b[i + 1].slice(0, 5).split(":").map(Number);
+    const a = h1 * 60 + m1, b = h2 * 60 + m2;
+    s += `<i style="left:${p(a)};width:${p(Math.max(b - a, 4))}"></i>`;
+  }
+  return s + "</div>";
+}
+
+/* ================= visão individual ================= */
+function renderInd() {
+  const c = ATUAL, v = $("#vInd");
+  if (!c.semanas.length) { v.innerHTML = "<div class='card'>Sem dados ainda.</div>"; return; }
+  const s = c.semanas[iSem], ult = c.semanas[c.semanas.length - 1];
+  const mesAtual = c.meses[c.meses.length - 1];
+  const [ma, mm] = mesAtual.k.split("-");
+  let h = "";
+  if (DADOS.perfil === "admin") {
+    h += `<div class="selcol"><select id="selCol">${DADOS.colaboradores.map((x, i) =>
+      `<option value="${i}" ${x === c ? "selected" : ""}>${esc(nomeBonito(x.nome))}</option>`).join("")}</select></div>`;
+  }
+  h += `<div class="card"><div class="pessoa"><div class="av">${iniciais(c.nome)}</div><div>
+    <b>${esc(nomeBonito(c.nome))}</b><div>${esc(c.funcao.charAt(0) + c.funcao.slice(1).toLowerCase())} · Mat. ${esc(c.matricula)}</div>
+    <div>Dados até ${dBr(c.ultimoDia, true)}</div></div></div></div>`;
+  h += `<div class="kpis">
+    <div class="kpi dest"><small>Banco de horas</small><b>${fmt(c.bancoAtual)}</b><span>saldo acumulado</span></div>
+    <div class="kpi"><small>Saldo da semana</small><b class="${cls(ult.saldo)}">${fmt(ult.saldo)}</b><span>${dBr(ult.ini)} a ${dBr(ult.fim)}</span></div>
+    <div class="kpi"><small>Saldo do mês</small><b class="${cls(mesAtual.saldo)}">${fmt(mesAtual.saldo)}</b><span>${MES[mm - 1]}/${ma}</span></div>
+    <div class="kpi"><small>Horas na semana</small><b>${fmt(ult.trab, false)}</b><span>${ult.ndias} dia(s) trabalhado(s)</span></div></div>`;
+  // semana selecionada
+  const chips = [`<span class="chip ${s.saldo > 0 ? "p" : s.saldo < 0 ? "n" : ""}">Saldo ${fmt(s.saldo)}</span>`,
+    `<span class="chip">${fmt(s.trab, false)} trabalhadas</span>`, `<span class="chip">Banco ${fmt(s.banco)}</span>`];
+  if (s.cont("feriado")) chips.push(`<span class="chip">${s.cont("feriado")} feriado</span>`);
+  if (s.cont("folga_banco")) chips.push(`<span class="chip">${s.cont("folga_banco")} folga banco</span>`);
+  if (s.cont("ferias")) chips.push(`<span class="chip">${s.cont("ferias")} dia(s) férias/afast.</span>`);
+  if (s.alertas.length) chips.push(`<span class="chip w">⚠ ${s.alertas.length} alerta(s)</span>`);
+  h += `<div class="card"><div class="nav"><button id="ant" ${iSem === 0 ? "disabled" : ""} aria-label="Semana anterior">‹</button>
+    <div class="lab">${dBr(s.ini)} a ${dBr(s.fim, true)}<small>${s.completa ? "Semana" : "Semana parcial"} ${iSem + 1} de ${c.semanas.length}</small></div>
+    <button id="prox" ${iSem === c.semanas.length - 1 ? "disabled" : ""} aria-label="Próxima semana">›</button></div>
+    <div class="chips">${chips.join("")}</div><div class="dias" style="margin-top:14px">`;
+  s.dias.forEach(d => {
+    const fds = d.t === "fim_semana", tag = TIPO[d.t] ? `<span class="tag ${d.a ? "w" : ""}">${d.a ? "⚠ " + esc(d.a) : TIPO[d.t]}</span>` : "";
+    const bat = d.b.length ? d.b.map(x => esc(x)).join(" · ") : (fds ? "Descanso" : "");
+    h += `<div class="dia ${fds ? "fds" : ""} ${d.a ? "al" : ""}"><div class="dt"><b>${dBr(d.dt)}</b><span>${DS[d.dt.getDay()]}</span></div>
+      <div><div class="bat">${bat} ${tag}</div>${barraDia(d)}</div>
+      <div class="res"><b class="${cls(d.s)}">${d.s ? fmt(d.s) : (fds ? "" : "00:00")}</b><span>${d.w ? fmt(d.w, false) + " trab." : ""}</span></div></div>`;
+  });
+  h += `</div><p class="leg">Barra azul = período trabalhado no dia (escala 0h–24h). * batida manual · ^ pré-assinalado · ¨ abono parcial.</p></div>`;
+  h += `<div class="grid2"><div class="card"><h2>Saldo por semana <small>toque numa barra</small></h2>${grafSemanas(c, iSem)}</div>
+    <div class="card"><h2>Evolução do banco de horas</h2>${grafBanco(c)}</div></div>`;
+  h += `<div class="card"><h2>Resumo mensal</h2><div style="overflow-x:auto"><table><tr><th>Mês</th><th class="r">Dias trab.</th>
+    <th class="r">Horas</th><th class="r">Saldo</th><th class="r">Banco fim</th><th class="r">Folgas</th></tr>
+    ${[...c.meses].reverse().map(m => { const [a, mo] = m.k.split("-"); return `<tr><td>${MES[mo - 1]}/${a}</td><td class="r">${m.ndias}</td>
+      <td class="r">${fmt(m.trab, false)}</td><td class="r ${cls(m.saldo)}"><b>${fmt(m.saldo)}</b></td><td class="r">${fmt(m.banco)}</td>
+      <td class="r">${m.folgas}</td></tr>`; }).join("")}</table></div>
+    <p class="leg">Saldo e banco são os valores oficiais do cartão ponto. Horas trabalhadas são calculadas pelas batidas. Em caso de divergência, procure a supervisão da empresa.</p></div>`;
+  v.innerHTML = h;
+  ligarTip(v);
+  $("#ant").onclick = () => { iSem--; renderInd(); };
+  $("#prox").onclick = () => { iSem++; renderInd(); };
+  v.querySelectorAll("g[data-i]").forEach(g => g.addEventListener("click", () => { iSem = +g.dataset.i; renderInd(); }));
+  const sc = $("#selCol"); if (sc) sc.onchange = () => { ATUAL = DADOS.colaboradores[+sc.value]; iSem = ATUAL.semanas.length - 1; renderInd(); };
+  // gesto de arrastar para trocar de semana no celular
+  let x0 = null; const area = v.querySelector(".dias");
+  area.addEventListener("touchstart", e => x0 = e.touches[0].clientX, {passive: true});
+  area.addEventListener("touchend", e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null;
+    if (dx > 60 && iSem > 0) { iSem--; renderInd(); } else if (dx < -60 && iSem < c.semanas.length - 1) { iSem++; renderInd(); } });
+}
+
+/* ================= visão equipe (fiscal) ================= */
+let ordem = "nome", busca = "", semEq = null;
+function renderEquipe() {
+  const C = DADOS.colaboradores, v = $("#vEquipe");
+  const todas = [...new Set(C.flatMap(c => c.semanas.map(s => dIso(s.ini))))].sort();
+  if (!todas.length) { v.innerHTML = "<div class='card'>Sem dados ainda.</div>"; return; }
+  if (!semEq || !todas.includes(semEq)) semEq = todas[todas.length - 1];
+  const linhas = C.map(c => ({ c, s: c.semanas.find(s => dIso(s.ini) === semEq) }));
+  const al30 = C.flatMap(c => c.dias.filter(d => d.a && (c.ultimoDia - d.dt) / 864e5 <= 30).map(d => ({c, d})));
+  const somaSaldo = linhas.reduce((a, l) => a + (l.s ? l.s.saldo : 0), 0);
+  const somaBanco = C.reduce((a, c) => a + (c.bancoAtual || 0), 0);
+  let L = linhas.filter(l => nomeBonito(l.c.nome).toLowerCase().includes(busca.toLowerCase()) || l.c.matricula.includes(busca));
+  const ord = {nome: (a, b) => a.c.nome.localeCompare(b.c.nome), banco: (a, b) => (b.c.bancoAtual || 0) - (a.c.bancoAtual || 0),
+    saldo: (a, b) => (a.s?.saldo || 0) - (b.s?.saldo || 0), alerta: (a, b) => (b.s?.alertas.length || 0) - (a.s?.alertas.length || 0)};
+  L.sort(ord[ordem]);
+  const ini = dParse(semEq);
+  let h = `<div class="kpis">
+    <div class="kpi dest"><small>Colaboradores</small><b>${C.length}</b><span>com dados no painel</span></div>
+    <div class="kpi"><small>Saldo da equipe</small><b class="${cls(somaSaldo)}">${fmt(somaSaldo)}</b><span>semana selecionada</span></div>
+    <div class="kpi"><small>Banco total</small><b>${fmt(somaBanco)}</b><span>soma dos bancos</span></div>
+    <div class="kpi"><small>Alertas (30 dias)</small><b class="${al30.length ? "neg" : "neu"}">${al30.length}</b><span>batidas a conferir</span></div></div>`;
+  const i = todas.indexOf(semEq);
+  h += `<div class="card"><div class="nav"><button id="eAnt" ${i === 0 ? "disabled" : ""}>‹</button>
+    <div class="lab">Semana ${dBr(ini)} a ${dBr(addD(ini, 6), true)}<small>visão da equipe</small></div>
+    <button id="eProx" ${i === todas.length - 1 ? "disabled" : ""}>›</button></div></div>`;
+  h += `<div class="tools"><input id="busca" placeholder="Buscar nome ou matrícula" value="${esc(busca)}">
+    <select id="ordem"><option value="nome">Ordenar: nome</option><option value="banco">Maior banco</option>
+    <option value="saldo">Menor saldo na semana</option><option value="alerta">Com alertas</option></select>
+    <button class="sbtn" id="csv">⬇ Exportar CSV</button></div><div class="equipe">`;
+  L.forEach(({c, s}) => {
+    const al = s ? s.alertas.length : 0;
+    h += `<button class="mem" data-m="${esc(c.matricula)}"><div class="h"><div class="av">${iniciais(c.nome)}</div>
+      <div style="flex:1;min-width:0"><b>${esc(nomeBonito(c.nome))}</b><span>Mat. ${esc(c.matricula)}${al ? ` · <span class="tag w">⚠ ${al}</span>` : ""}</span></div></div>
+      <div class="n"><div><small>Saldo semana</small><b class="${cls(s?.saldo)}">${s ? fmt(s.saldo) : "—"}</b></div>
+      <div><small>Horas</small><b>${s ? fmt(s.trab, false) : "—"}</b></div>
+      <div><small>Banco</small><b>${fmt(c.bancoAtual)}</b></div></div></button>`;
+  });
+  h += `</div>`;
+  h += `<div class="card" style="margin-top:14px"><h2>Pontos de atenção <small>últimos 30 dias</small></h2>${al30.length ? `<ul class="alertas">${al30
+    .sort((a, b) => b.d.dt - a.d.dt).map(({c, d}) => `<li><b>${dBr(d.dt, true)}</b> · ${esc(nomeBonito(c.nome))} — ${esc(d.a)}${d.b.length ? " (" + d.b.join(" ") + ")" : ""}</li>`).join("")}</ul>`
+    : "<p class='leg'>Nenhum alerta. 👍</p>"}</div>`;
+  v.innerHTML = h;
+  $("#ordem").value = ordem;
+  $("#ordem").onchange = e => { ordem = e.target.value; renderEquipe(); };
+  $("#busca").oninput = e => { busca = e.target.value; const p = e.target.selectionStart; renderEquipe(); const b = $("#busca"); b.focus(); b.setSelectionRange(p, p); };
+  $("#eAnt").onclick = () => { semEq = todas[i - 1]; renderEquipe(); };
+  $("#eProx").onclick = () => { semEq = todas[i + 1]; renderEquipe(); };
+  v.querySelectorAll(".mem").forEach(b => b.onclick = () => { ATUAL = C.find(c => c.matricula === b.dataset.m); mostrar("ind"); });
+  $("#csv").onclick = () => exportarCSV(linhas, ini);
+}
+function exportarCSV(linhas, ini) {
+  const rows = [["Colaborador", "Matrícula", "Semana", "Dias trabalhados", "Horas trabalhadas", "Saldo semana", "Banco fim semana", "Banco atual", "Alertas"]];
+  linhas.forEach(({c, s}) => rows.push([nomeBonito(c.nome), c.matricula, dBr(ini, true), s?.ndias ?? "", s ? fmt(s.trab, false) : "",
+    s ? fmt(s.saldo) : "", s ? fmt(s.banco) : "", fmt(c.bancoAtual), s?.alertas.length ?? ""]));
+  const csv = "\ufeff" + rows.map(r => r.map(x => `"${String(x).replace(/"/g, '""')}"`).join(";")).join("\r\n");
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([csv], {type: "text/csv;charset=utf-8"}));
+  a.download = `ponto_equipe_${dIso(ini)}.csv`; a.click(); URL.revokeObjectURL(a.href);
+}
+</script>
+</body>
+</html>
