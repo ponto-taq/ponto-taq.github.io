@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#0b3d6e">
+<meta http-equiv="Cache-Control" content="no-cache">
 <title>Consulta de Ponto · SGM/TAQ</title>
 <style>
 :root{--azul:#0b3d6e;--azul2:#1665a8;--bg:#f2f5fa;--card:#fff;--txt:#1f2937;--sub:#6b7280;--bord:#e5e9f0;
@@ -27,6 +28,7 @@ input:focus,select:focus{outline:none;border-color:var(--azul2);box-shadow:0 0 0
 .btn:disabled{opacity:.6}
 .erro{color:var(--neg);font-size:13.5px;margin-top:12px;min-height:18px}
 .nota{font-size:12px;color:var(--sub);margin-top:18px;text-align:center}
+.versao{font-size:11px;color:#9ca3af;text-align:center;margin-top:6px}
 header.top{position:sticky;top:0;z-index:10;background:linear-gradient(135deg,var(--azul),var(--azul2));color:#fff;
 padding:12px 16px;padding-top:max(12px,env(safe-area-inset-top));box-shadow:0 2px 10px rgba(0,0,0,.15)}
 .toprow{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:12px}
@@ -145,6 +147,7 @@ td{padding:9px 8px;border-bottom:1px solid #f1f3f6;font-variant-numeric:tabular-
     <button class="btn" id="entrar">Entrar</button>
     <div class="erro" id="erro"></div>
     <div class="nota">🔒 Seus dados são descriptografados apenas neste aparelho.</div>
+    <div class="versao">versão 3 · folha mensal</div>
   </form>
 </section>
 
@@ -235,7 +238,16 @@ function calcAnot(a, j, fator) {
 
 /* modelo de dados */
 function preparar(c, comAnot) {
-  if (!c.oficiais) c.oficiais = c.dias.map(d => ({...d, dt: dParse(d.d)}));
+  if (!c.oficiais) c.oficiais = c.dias.map(d => {
+    const x = {...d, dt: dParse(d.d)};
+    // batida pré-assinalada (^) é do sistema: se o dia termina/começa nela, faltou a batida real
+    const hs = x.b.filter(h => /^\d\d:\d\d/.test(h));
+    if (hs.length && ["trabalhado", "incompleto"].includes(x.t)) {
+      if (hs[hs.length - 1].endsWith("^")) { x.t = "incompleto"; x.w = null; x.a = "Saída não registrada"; }
+      else if (hs[0].endsWith("^")) { x.t = "incompleto"; x.w = null; x.a = "Entrada não registrada"; }
+    }
+    return x;
+  });
   const fator = (DADOS.regras && DADOS.regras.fator) || 2;
   const ofi = new Map(c.oficiais.map(d => [d.d, d]));
   const ultOfi = [...c.oficiais].reverse().find(d => d.bh !== null);
@@ -595,7 +607,6 @@ function renderEquipe() {
   const linhas = C.map(c => ({ c, s: c.semanas.find(s => dIso(s.ini) === semEq) }));
   const al30 = C.flatMap(c => c.diasTodos.filter(d => d.a && (c.ultimoDia - d.dt) / 864e5 <= 30).map(d => ({c, d})));
   const somaSaldo = linhas.reduce((a, l) => a + (l.s ? l.s.saldo : 0), 0);
-  const somaBanco = C.reduce((a, c) => a + (c.bancoAtual || 0), 0);
   const altos = C.filter(c => (c.bancoAtual || 0) > lim).sort((a, b) => b.bancoAtual - a.bancoAtual);
   const ultDado = new Date(Math.max(...C.map(c => c.ultimoDia || 0)));
   const mesRef = dIso(fimSem < ultDado ? fimSem : (ultDado >= ini ? ultDado : fimSem)).slice(0, 7);
