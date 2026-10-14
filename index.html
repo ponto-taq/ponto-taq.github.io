@@ -14,7 +14,6 @@ html,body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-syst
 button{font:inherit;cursor:pointer}
 .hide{display:none!important}
 .pos{color:var(--pos)}.neg{color:var(--neg)}.neu{color:var(--txt)}
-/* ---------- login ---------- */
 #login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;
 background:radial-gradient(circle at 20% 10%,#2b7cc4 0,transparent 45%),linear-gradient(160deg,#0b3d6e,#082a4d)}
 .lbox{background:#fff;border-radius:22px;padding:30px 26px;width:100%;max-width:380px;box-shadow:0 20px 50px rgba(0,0,0,.3)}
@@ -28,9 +27,8 @@ input:focus,select:focus{outline:none;border-color:var(--azul2);box-shadow:0 0 0
 .btn:disabled{opacity:.6}
 .erro{color:var(--neg);font-size:13.5px;margin-top:12px;min-height:18px}
 .nota{font-size:12px;color:var(--sub);margin-top:18px;text-align:center}
-/* ---------- app ---------- */
 header.top{position:sticky;top:0;z-index:10;background:linear-gradient(135deg,var(--azul),var(--azul2));color:#fff;
-padding:12px 16px calc(12px);padding-top:max(12px,env(safe-area-inset-top));box-shadow:0 2px 10px rgba(0,0,0,.15)}
+padding:12px 16px;padding-top:max(12px,env(safe-area-inset-top));box-shadow:0 2px 10px rgba(0,0,0,.15)}
 .toprow{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:12px}
 .toprow .t{flex:1;min-width:0}.toprow b{display:block;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .toprow small{opacity:.85;font-size:12px}
@@ -63,14 +61,16 @@ main{max-width:1100px;margin:0 auto;padding:16px 14px 40px}
 .dias{display:flex;flex-direction:column;gap:8px}
 .dia{border:1px solid var(--bord);border-radius:14px;padding:11px 12px;display:grid;grid-template-columns:62px 1fr auto;gap:10px;align-items:center}
 .dia.fds{background:#fafbfc;opacity:.7}.dia.al{border-color:#fdba74;background:#fffaf5}
+.dia.prev{border-style:dashed;background:#f8fafc}
 .dt b{display:block;font-size:17px}.dt span{font-size:12px;color:var(--sub);text-transform:uppercase;font-weight:700}
 .bat{font-variant-numeric:tabular-nums;font-size:14px}
 .bar{position:relative;height:8px;background:#eef2f7;border-radius:6px;margin-top:7px}
 .bar i{position:absolute;top:0;bottom:0;border-radius:6px;background:linear-gradient(90deg,#60a5fa,var(--azul2))}
+.prev .bar i{background:repeating-linear-gradient(45deg,#94a3b8 0 6px,#cbd5e1 6px 12px)}
 .bar em{position:absolute;top:-3px;bottom:-3px;width:1px;background:#cbd5e1}
 .res{text-align:right;font-variant-numeric:tabular-nums}.res b{display:block;font-size:15px}.res span{font-size:12px;color:var(--sub)}
 .tag{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:#eef2f7}
-.tag.w{background:var(--warnbg);color:var(--warn)}
+.tag.w{background:var(--warnbg);color:var(--warn)}.tag.g{background:#e2e8f0;color:#475569}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 svg text{font-family:inherit}
 .tip{position:fixed;pointer-events:none;background:#111827;color:#fff;font-size:12.5px;padding:7px 10px;border-radius:8px;z-index:50;transform:translate(-50%,-115%);white-space:nowrap}
@@ -85,21 +85,39 @@ td{padding:9px 8px;border-bottom:1px solid #f1f3f6;font-variant-numeric:tabular-
 .equipe{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
 .mem{background:#fff;border-radius:var(--r);padding:14px;box-shadow:0 1px 3px rgba(16,24,40,.06);border:1.5px solid transparent;text-align:left;width:100%;transition:.15s}
 .mem:hover{border-color:#bfdbfe;transform:translateY(-1px)}
+.mem.alto{border-color:#fca5a5}
 .mem .h{display:flex;gap:10px;align-items:center;margin-bottom:10px}.mem .h b{font-size:14.5px;display:block}
 .mem .h span{font-size:12px;color:var(--sub)}
 .mem .n{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
 .mem .n div small{display:block;font-size:11px;color:var(--sub)}.mem .n div b{font-size:16px;font-variant-numeric:tabular-nums}
-.alertas li{padding:8px 0;border-bottom:1px solid #f1f3f6;font-size:14px;list-style:none}
-.alertas{margin:0;padding:0}
+.lista li{padding:8px 0;border-bottom:1px solid #f1f3f6;font-size:14px;list-style:none;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.lista li:last-child{border-bottom:0}
+.lista{margin:0;padding:0}
 .leg{font-size:12px;color:var(--sub);line-height:1.6;margin-top:10px}
 .selcol{margin-bottom:14px}
+/* ---------- cartão Hoje ---------- */
+.hoje{background:linear-gradient(160deg,#fff,#f5f9ff);border:1.5px solid #dbeafe}
+.hoje .lin{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.hoje label{margin:0 0 5px}
+.campo{display:flex;gap:6px}.campo input{padding:11px 10px;font-size:17px;font-variant-numeric:tabular-nums}
+.agora{border:0;border-radius:12px;background:var(--azul2);color:#fff;font-weight:700;font-size:13px;padding:0 12px;white-space:nowrap}
+.prevbox{margin-top:14px;border-radius:14px;background:linear-gradient(135deg,var(--azul),var(--azul2));color:#fff;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.prevbox small{display:block;opacity:.85;font-size:12px;text-transform:uppercase;letter-spacing:.04em;font-weight:600}
+.prevbox b{font-size:34px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.prevbox .cd{text-align:right;font-size:14px;font-weight:600}
+.mini{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.mini div{background:#fff;border:1px solid var(--bord);border-radius:12px;padding:9px 10px}
+.mini small{display:block;font-size:11px;color:var(--sub);font-weight:600}
+.mini b{font-size:16px;font-variant-numeric:tabular-nums}
+.lnk{border:0;background:none;color:var(--azul2);font-weight:600;padding:4px 0;font-size:13px}
+.lnk.del{color:var(--neg)}
+.alerta-chefe{border-left:4px solid var(--neg)}
 @media(max-width:820px){.kpis{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}.kpi b{font-size:22px}}
-@media(max-width:380px){.dia{grid-template-columns:52px 1fr auto}.kpi b{font-size:20px}}
+@media(max-width:380px){.dia{grid-template-columns:52px 1fr auto}.kpi b{font-size:20px}.prevbox b{font-size:28px}.mini b{font-size:14px}}
 </style>
 </head>
 <body>
 
-<!-- ================= LOGIN ================= -->
 <section id="login">
   <form class="lbox" id="flogin" autocomplete="on">
     <div class="logo"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
@@ -116,7 +134,6 @@ td{padding:9px 8px;border-bottom:1px solid #f1f3f6;font-variant-numeric:tabular-
   </form>
 </section>
 
-<!-- ================= APP ================= -->
 <section id="app" class="hide">
   <header class="top">
     <div class="toprow">
@@ -143,9 +160,11 @@ const DS = ["dom","seg","ter","qua","qui","sex","sáb"];
 const MES = ["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
 const fmt = (m, sinal = true) => {
   if (m === null || m === undefined) return "—";
-  const s = m < 0 ? "-" : (sinal ? "+" : ""); m = Math.abs(m);
+  const s = m < 0 ? "-" : (sinal ? "+" : ""); m = Math.abs(Math.round(m));
   return s + String(Math.floor(m / 60)).padStart(2, "0") + ":" + String(m % 60).padStart(2, "0");
 };
+const hhmm = m => { m = ((Math.round(m) % 1440) + 1440) % 1440; return String(Math.floor(m / 60)).padStart(2, "0") + ":" + String(m % 60).padStart(2, "0"); };
+const toMin = t => { const [h, m] = t.slice(0, 5).split(":").map(Number); return h * 60 + m; };
 const cls = m => (m || 0) > 0 ? "pos" : (m || 0) < 0 ? "neg" : "neu";
 const esc = t => String(t).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const dParse = s => { const [y, m, d] = s.split("-").map(Number); return new Date(y, m - 1, d); };
@@ -153,16 +172,28 @@ const dIso = d => d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "
 const dBr = (d, ano) => String(d.getDate()).padStart(2, "0") + "/" + String(d.getMonth() + 1).padStart(2, "0") + (ano ? "/" + d.getFullYear() : "");
 const segunda = d => { const x = new Date(d); x.setDate(x.getDate() - ((x.getDay() + 6) % 7)); return x; };
 const addD = (d, n) => { const x = new Date(d); x.setDate(x.getDate() + n); return x; };
+const hojeIso = () => dIso(new Date());
+const agoraMin = () => { const n = new Date(); return n.getHours() * 60 + n.getMinutes(); };
 const nomeBonito = n => n.toLowerCase().split(" ").map(p => ["de","da","do","das","dos","e"].includes(p) ? p : p.charAt(0).toUpperCase() + p.slice(1)).join(" ");
 const iniciais = n => { const p = n.split(" ").filter(x => x.length > 2); return (p[0][0] + (p.length > 1 ? p[p.length - 1][0] : "")).toUpperCase(); };
 const TIPO = {feriado:"Feriado", folga_banco:"Folga (banco)", ferias:"Férias/afast.", sem_registro:"Sem registro", incompleto:"Incompleto"};
+const jorTxt = j => (j.min % 60 ? fmt(j.min, false) : (j.min / 60) + "h") + (j.int ? ` + ${j.int} min de intervalo` : " direto");
 
-/* ================= criptografia (WebCrypto) ================= */
+/* ================= regra da CCT ================= */
+// diferença dentro da tolerância = 0; hora a mais × fator (2); hora a menos × 1
+function saldoRegra(trab, j, fator) {
+  const dif = trab - j.min;
+  if (Math.abs(dif) <= j.tol) return 0;
+  return dif > 0 ? dif * fator : dif;
+}
+
+/* ================= criptografia ================= */
 const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
 async function sha256hex(t) {
   const h = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(t));
   return [...new Uint8Array(h)].map(b => b.toString(16).padStart(2, "0")).join("");
 }
+let CHAVE_LOCAL = "";
 async function entrar(login, senha) {
   const nome = (await sha256hex("ponto|" + login.trim().toLowerCase())).slice(0, 40);
   const r = await fetch("dados/" + nome + ".json", {cache: "no-store"});
@@ -173,50 +204,87 @@ async function entrar(login, senha) {
     base, {name: "AES-GCM", length: 256}, false, ["decrypt"]);
   try {
     const pt = await crypto.subtle.decrypt({name: "AES-GCM", iv: b64(pac.iv)}, chave, b64(pac.dados));
+    CHAVE_LOCAL = "pontoAnot:" + nome;
     return JSON.parse(new TextDecoder().decode(pt));
   } catch (e) { throw new Error("senha"); }
 }
 
+/* ================= anotações (ficam só neste aparelho) ================= */
+const lerAnot = () => { try { return JSON.parse(localStorage.getItem(CHAVE_LOCAL) || "{}"); } catch (e) { return {}; } };
+const gravarAnot = a => localStorage.setItem(CHAVE_LOCAL, JSON.stringify(a));
+function calcAnot(a, j, fator) {
+  if (!a || !a.e || !a.s) return null;
+  let trab = toMin(a.s) - toMin(a.e); if (trab < 0) trab += 1440;
+  trab -= j.int;
+  return {trab, saldo: saldoRegra(trab, j, fator)};
+}
+
 /* ================= modelo de dados ================= */
-function preparar(c) {
-  c.dias.forEach(d => d.dt = dParse(d.d));
+function preparar(c, comAnot) {
+  if (!c.oficiais) c.oficiais = c.dias.map(d => ({...d, dt: dParse(d.d)}));
+  const fator = (DADOS.regras && DADOS.regras.fator) || 2;
+  const ofi = new Map(c.oficiais.map(d => [d.d, d]));
+  const ultOfi = [...c.oficiais].reverse().find(d => d.bh !== null);
+  let dias = c.oficiais.map(d => ({...d}));
+  c.anot = comAnot ? lerAnot() : {};
+  // divergência: anotação x registro oficial
+  dias.forEach(d => {
+    const a = c.anot[d.d];
+    if (a && a.e && a.s && d.b.length >= 2) {
+      const e0 = toMin(d.b[0]), s0 = toMin(d.b[d.b.length - 1]);
+      if (Math.abs(e0 - toMin(a.e)) > 2 || Math.abs(s0 - toMin(a.s)) > 2) d.div = `Sua anotação: ${a.e}–${a.s}`;
+    }
+  });
+  // dias anotados que a empresa ainda não enviou = previstos
+  let banco = ultOfi ? ultOfi.bh : 0;
+  const pend = Object.keys(c.anot).filter(k => !ofi.has(k) && (!ultOfi || k > ultOfi.d)).sort();
+  pend.forEach(k => {
+    const r = calcAnot(c.anot[k], c.j, fator); if (!r) return;
+    banco += r.saldo;
+    const a = c.anot[k];
+    dias.push({d: k, dt: dParse(k), b: c.j.int ? [a.e, "intervalo", a.s] : [a.e, a.s], s: r.saldo, bh: banco,
+      t: "previsto", w: r.trab, a: "", prev: true});
+  });
+  dias.sort((x, y) => x.d.localeCompare(y.d));
+  c.diasTodos = dias;
+  c.temPrev = pend.length > 0;
   const sem = new Map();
-  c.dias.forEach(d => { const k = dIso(segunda(d.dt)); if (!sem.has(k)) sem.set(k, []); sem.get(k).push(d); });
+  dias.forEach(d => { const k = dIso(segunda(d.dt)); if (!sem.has(k)) sem.set(k, []); sem.get(k).push(d); });
   c.semanas = [...sem.entries()].sort().map(([k, ds]) => {
     const ini = dParse(k);
     const bancoFim = [...ds].reverse().find(d => d.bh !== null);
-    return { ini, fim: addD(ini, 6), dias: ds, completa: ds.length === 7,
+    return { ini, fim: addD(ini, 6), dias: ds, completa: ds.length === 7, temPrev: ds.some(d => d.prev),
       saldo: ds.reduce((a, d) => a + (d.s || 0), 0),
       trab: ds.reduce((a, d) => a + (d.w || 0), 0),
-      ndias: ds.filter(d => d.t === "trabalhado" || d.t === "incompleto").length,
+      ndias: ds.filter(d => ["trabalhado", "incompleto", "previsto"].includes(d.t)).length,
       banco: bancoFim ? bancoFim.bh : null,
       alertas: ds.filter(d => d.a),
       cont: t => ds.filter(d => d.t === t).length };
   });
   const mes = new Map();
-  c.dias.forEach(d => { const k = d.d.slice(0, 7); if (!mes.has(k)) mes.set(k, []); mes.get(k).push(d); });
+  dias.forEach(d => { const k = d.d.slice(0, 7); if (!mes.has(k)) mes.set(k, []); mes.get(k).push(d); });
   c.meses = [...mes.entries()].sort().map(([k, ds]) => ({ k, ds,
     saldo: ds.reduce((a, d) => a + (d.s || 0), 0), trab: ds.reduce((a, d) => a + (d.w || 0), 0),
-    ndias: ds.filter(d => d.t === "trabalhado" || d.t === "incompleto").length,
+    ndias: ds.filter(d => ["trabalhado", "incompleto", "previsto"].includes(d.t)).length,
     banco: [...ds].reverse().find(d => d.bh !== null)?.bh ?? null,
-    folgas: ds.filter(d => d.t === "folga_banco").length, alertas: ds.filter(d => d.a).length }));
-  const ult = [...c.dias].reverse().find(d => d.bh !== null);
-  c.bancoAtual = ult ? ult.bh : null;
-  c.ultimoDia = c.dias.length ? c.dias[c.dias.length - 1].dt : null;
+    folgas: ds.filter(d => d.t === "folga_banco").length }));
+  c.bancoOficial = ultOfi ? ultOfi.bh : null;
+  c.ultimoOficial = ultOfi ? ultOfi.dt : null;
+  c.bancoAtual = c.temPrev ? banco : c.bancoOficial;
+  c.ultimoDia = dias.length ? dias[dias.length - 1].dt : null;
   return c;
 }
 
 /* ================= estado ================= */
-let DADOS = null, ATUAL = null, iSem = 0, timerInat = null;
+let DADOS = null, ATUAL = null, iSem = 0, timerInat = null, timerCd = null, diaHoje = hojeIso();
 
-/* ================= login / logout ================= */
 $("#ver").onclick = () => { const s = $("#s"); s.type = s.type === "password" ? "text" : "password"; };
 $("#flogin").onsubmit = async ev => {
   ev.preventDefault();
   const b = $("#entrar"); b.disabled = true; b.textContent = "Verificando…"; $("#erro").textContent = "";
   try {
     DADOS = await entrar($("#u").value, $("#s").value);
-    DADOS.colaboradores.forEach(preparar);
+    DADOS.colaboradores.forEach(c => preparar(c, DADOS.perfil !== "admin"));
     $("#s").value = "";
     iniciarApp();
   } catch (e) {
@@ -225,7 +293,7 @@ $("#flogin").onsubmit = async ev => {
   }
   b.disabled = false; b.textContent = "Entrar";
 };
-function sair() { DADOS = null; ATUAL = null; $("#app").classList.add("hide"); $("#login").classList.remove("hide");
+function sair() { DADOS = null; ATUAL = null; clearInterval(timerCd); $("#app").classList.add("hide"); $("#login").classList.remove("hide");
   $("#vEquipe").innerHTML = ""; $("#vInd").innerHTML = ""; window.scrollTo(0, 0); }
 $("#sair").onclick = sair;
 ["click", "touchstart", "keydown", "scroll"].forEach(e => addEventListener(e, () => {
@@ -234,18 +302,18 @@ $("#sair").onclick = sair;
 function iniciarApp() {
   $("#login").classList.add("hide"); $("#app").classList.remove("hide");
   $("#hAtu").textContent = "Atualizado em " + DADOS.atualizado;
+  ATUAL = DADOS.colaboradores[0];
   if (DADOS.perfil === "admin") {
     $("#hNome").textContent = "Painel do fiscal";
     $("#tabs").classList.remove("hide");
     document.querySelectorAll(".tab").forEach(t => t.onclick = () => mostrar(t.dataset.v));
-    ATUAL = DADOS.colaboradores[0];
     mostrar("equipe");
   } else {
     $("#hNome").textContent = nomeBonito(DADOS.nome);
-    ATUAL = DADOS.colaboradores[0];
     mostrar("ind");
   }
   clearTimeout(timerInat); timerInat = setTimeout(sair, 15 * 60 * 1000);
+  clearInterval(timerCd); timerCd = setInterval(atualizarContagem, 20000);
 }
 function mostrar(v) {
   document.querySelectorAll(".tab").forEach(t => t.classList.toggle("on", t.dataset.v === v));
@@ -267,7 +335,7 @@ function ligarTip(root) {
   });
 }
 
-/* ================= gráficos SVG ================= */
+/* ================= gráficos ================= */
 function grafSemanas(c, sel) {
   const S = c.semanas.slice(-12), off = c.semanas.length - S.length;
   const W = 640, H = 210, pad = 10, top = 26, base = H / 2 + 5;
@@ -279,84 +347,164 @@ function grafSemanas(c, sel) {
     const h = Math.abs(s.saldo) / max * (H / 2 - top), x = pad + i * lw + lw * .16, w = lw * .68;
     const y = s.saldo >= 0 ? base - h : base, idx = off + i, on = idx === sel;
     const cor = s.saldo >= 0 ? (on ? "#047857" : "#34d399") : (on ? "#b91c1c" : "#f87171");
-    g += `<g data-i="${idx}" style="cursor:pointer" data-tip="Semana ${dBr(s.ini)}–${dBr(s.fim)}<br>Saldo <b>${fmt(s.saldo)}</b> · Banco ${fmt(s.banco)}">
+    g += `<g data-i="${idx}" style="cursor:pointer" data-tip="Semana ${dBr(s.ini)}–${dBr(s.fim)}${s.temPrev ? " (com previsão)" : ""}<br>Saldo <b>${fmt(s.saldo)}</b> · Banco ${fmt(s.banco)}">
       <rect x="${x - lw * .16}" y="0" width="${lw}" height="${H + 24}" fill="${on ? "#eff6ff" : "transparent"}" rx="8"/>
-      <rect x="${x}" y="${y}" width="${w}" height="${Math.max(h, 2)}" rx="5" fill="${cor}"/>
-      <text x="${x + w / 2}" y="${s.saldo >= 0 ? y - 6 : y + h + 15}" font-size="15" text-anchor="middle" fill="#374151" font-weight="${on ? 700 : 500}">${fmt(s.saldo)}</text>
+      <rect x="${x}" y="${y}" width="${w}" height="${Math.max(h, 2)}" rx="5" fill="${cor}" ${s.temPrev ? 'fill-opacity=".55" stroke="' + cor + '" stroke-dasharray="4 3"' : ""}/>
+      <text x="${x + w / 2}" y="${s.saldo >= 0 ? y - 6 : y + h + 17}" font-size="15" text-anchor="middle" fill="#374151" font-weight="${on ? 700 : 500}">${fmt(s.saldo)}</text>
       <text x="${x + w / 2}" y="${H + 16}" font-size="14" text-anchor="middle" fill="#6b7280">${dBr(s.ini)}</text></g>`;
   });
   return g + "</svg>";
 }
 function grafBanco(c) {
-  const P = c.dias.filter(d => d.bh !== null).slice(-120);
+  const P = c.diasTodos.filter(d => d.bh !== null).slice(-120);
   if (P.length < 2) return "<p class='leg'>Dados insuficientes.</p>";
-  const W = 640, H = 200, pl = 8, pr = 8, pt = 16, pb = 26;
+  const W = 640, H = 200, pl = 8, pr = 8, pt = 22, pb = 26;
   const vals = P.map(d => d.bh), mn = Math.min(...vals), mx = Math.max(...vals), rg = Math.max(30, mx - mn);
   const X = i => pl + i * (W - pl - pr) / (P.length - 1), Y = v => pt + (1 - (v - mn) / rg) * (H - pt - pb);
-  const pts = P.map((d, i) => `${X(i).toFixed(1)},${Y(d.bh).toFixed(1)}`).join(" ");
+  const iPrev = P.findIndex(d => d.prev);
+  const nOfi = iPrev < 0 ? P.length : iPrev;
+  const pts = P.slice(0, nOfi).map((d, i) => `${X(i).toFixed(1)},${Y(d.bh).toFixed(1)}`).join(" ");
   let g = `<svg viewBox="0 0 ${W} ${H}" width="100%"><defs><linearGradient id="gb" x1="0" x2="0" y1="0" y2="1">
     <stop offset="0" stop-color="#1665a8" stop-opacity=".25"/><stop offset="1" stop-color="#1665a8" stop-opacity="0"/></linearGradient></defs>
-    <polygon points="${X(0)},${H - pb} ${pts} ${X(P.length - 1)},${H - pb}" fill="url(#gb)"/>
-    <polyline points="${pts}" fill="none" stroke="#1665a8" stroke-width="2.5" stroke-linejoin="round"/>
-    <text x="${pl}" y="${H - 6}" font-size="14" fill="#6b7280">${dBr(P[0].dt, true)}</text>
+    <polygon points="${X(0)},${H - pb} ${pts} ${X(nOfi - 1)},${H - pb}" fill="url(#gb)"/>
+    <polyline points="${pts}" fill="none" stroke="#1665a8" stroke-width="2.5" stroke-linejoin="round"/>`;
+  if (iPrev >= 0) {
+    const pp = P.slice(Math.max(iPrev - 1, 0)).map((d, k) => `${X(k + Math.max(iPrev - 1, 0)).toFixed(1)},${Y(d.bh).toFixed(1)}`).join(" ");
+    g += `<polyline points="${pp}" fill="none" stroke="#94a3b8" stroke-width="2.5" stroke-dasharray="6 5"/>`;
+  }
+  g += `<text x="${pl}" y="${H - 6}" font-size="14" fill="#6b7280">${dBr(P[0].dt, true)}</text>
     <text x="${W - pr}" y="${H - 6}" font-size="14" fill="#6b7280" text-anchor="end">${dBr(P[P.length - 1].dt, true)}</text>
-    <text x="${W - pr}" y="${Y(P[P.length - 1].bh) - 8}" font-size="16" font-weight="700" fill="#0b3d6e" text-anchor="end">${fmt(P[P.length - 1].bh)}</text>`;
+    <text x="${W - pr}" y="${Math.max(16, Y(P[P.length - 1].bh) - 8)}" font-size="16" font-weight="700" fill="#0b3d6e" text-anchor="end">${fmt(P[P.length - 1].bh)}${iPrev >= 0 ? " (prev.)" : ""}</text>`;
   const lw = (W - pl - pr) / P.length;
   P.forEach((d, i) => g += `<rect x="${X(i) - lw / 2}" y="0" width="${lw}" height="${H}" fill="transparent"
-    data-tip="${dBr(d.dt, true)} (${DS[d.dt.getDay()]})<br>Banco <b>${fmt(d.bh)}</b> · dia ${fmt(d.s)}"/>`);
+    data-tip="${dBr(d.dt, true)} (${DS[d.dt.getDay()]})${d.prev ? " · previsto" : ""}<br>Banco <b>${fmt(d.bh)}</b> · dia ${fmt(d.s)}"/>`);
   return g + "</svg>";
 }
 function barraDia(d) {
-  if (!d.b.length) return "";
+  const hs = d.b.filter(x => /^\d\d:\d\d/.test(x));
+  if (hs.length < 2) return "";
   const p = m => (m / 1440 * 100).toFixed(2) + "%";
   let s = `<div class="bar"><em style="left:25%"></em><em style="left:50%"></em><em style="left:75%"></em>`;
-  for (let i = 0; i + 1 < d.b.length; i += 2) {
-    const [h1, m1] = d.b[i].slice(0, 5).split(":").map(Number), [h2, m2] = d.b[i + 1].slice(0, 5).split(":").map(Number);
-    const a = h1 * 60 + m1, b = h2 * 60 + m2;
+  for (let i = 0; i + 1 < hs.length; i += 2) {
+    const a = toMin(hs[i]); let b = toMin(hs[i + 1]); if (b < a) b = 1440;
     s += `<i style="left:${p(a)};width:${p(Math.max(b - a, 4))}"></i>`;
   }
   return s + "</div>";
 }
 
+/* ================= cartão "Hoje" (colaborador) ================= */
+function htmlHoje(c) {
+  const fator = DADOS.regras.fator || 2;
+  const a = c.anot[diaHoje] || {};
+  const oficial = c.oficiais.find(d => d.d === diaHoje);
+  const ehHoje = diaHoje === hojeIso();
+  let prev = "", mini = "";
+  if (a.e) {
+    const saidaPrev = toMin(a.e) + c.j.min + c.j.int;
+    if (a.s) {
+      const r = calcAnot(a, c.j, fator);
+      prev = `<div class="prevbox"><div><small>Saldo previsto do dia</small><b>${fmt(r.saldo)}</b></div>
+        <div class="cd">${fmt(r.trab, false)} trabalhadas<br><span style="opacity:.85;font-weight:500">${r.saldo > 0 ? `${fmt(r.saldo / fator, false)} a mais × ${fator}` : r.saldo === 0 ? "dentro da tolerância" : "desconta simples"}</span></div></div>`;
+    } else {
+      prev = `<div class="prevbox"><div><small>Saída prevista</small><b>${hhmm(saidaPrev)}</b></div>
+        <div class="cd" id="cd" data-alvo="${saidaPrev}" data-ehhoje="${ehHoje ? 1 : 0}"></div></div>`;
+      // para zerar a semana (horas a mais valem em dobro)
+      const ini = segunda(dParse(diaHoje)), fimS = addD(ini, 6);
+      const saldoSem = c.diasTodos.filter(d => d.dt >= ini && d.dt <= fimS && d.d !== diaHoje).reduce((s, d) => s + (d.s || 0), 0);
+      let zerar = "";
+      if (saldoSem < 0) {
+        const extra = Math.max(Math.ceil(-saldoSem / fator), c.j.tol + 1);
+        zerar = `<div><small>Para zerar a semana</small><b>${hhmm(saidaPrev + extra)}</b></div>`;
+      } else zerar = `<div><small>Saldo da semana</small><b class="pos">${fmt(saldoSem)}</b></div>`;
+      mini = `<div class="mini"><div><small>Tolerância</small><b>${hhmm(saidaPrev - c.j.tol)}–${hhmm(saidaPrev + c.j.tol)}</b></div>
+        <div><small>+1h a mais =</small><b class="pos">+${fmt(60 * fator, false)}</b></div>${zerar}</div>`;
+    }
+  }
+  const pend = Object.keys(c.anot).filter(k => !c.oficiais.some(d => d.d === k) && k !== diaHoje).sort().reverse();
+  return `<div class="card hoje"><h2>⏱ Minha jornada <small>${jorTxt(c.j)}</small></h2>
+    <div class="lin" style="grid-template-columns:1fr"><div><label for="hDia">Dia</label>
+      <input type="date" id="hDia" value="${diaHoje}" max="${hojeIso()}"></div></div>
+    ${oficial ? `<p class="leg" style="margin:10px 0 0">✅ Este dia já tem registro oficial: ${esc(oficial.b.join(" · ") || TIPO[oficial.t] || "—")} (${fmt(oficial.s)}). Vale o oficial.</p>` : ""}
+    <div class="lin" style="margin-top:10px">
+      <div><label for="hE">Entrada</label><div class="campo"><input type="time" id="hE" value="${a.e || ""}">${ehHoje ? '<button class="agora" data-c="e">Agora</button>' : ""}</div></div>
+      <div><label for="hS">Saída</label><div class="campo"><input type="time" id="hS" value="${a.s || ""}">${ehHoje ? '<button class="agora" data-c="s">Agora</button>' : ""}</div></div>
+    </div>
+    ${c.j.int ? `<p class="leg" style="margin:6px 0 0">O intervalo de ${c.j.int} min é descontado automaticamente.</p>` : ""}
+    ${prev}${mini}
+    ${a.e ? `<div style="text-align:right;margin-top:6px"><button class="lnk del" id="hLimpar">Apagar anotação deste dia</button></div>` : ""}
+    ${pend.length ? `<div style="margin-top:8px"><label>Anotações aguardando o registro da empresa</label><ul class="lista">${pend.map(k => {
+      const r = calcAnot(c.anot[k], c.j, fator);
+      return `<li><span>${dBr(dParse(k), true)} · ${esc(c.anot[k].e || "")}–${esc(c.anot[k].s || "?")}</span><span><b class="${cls(r?.saldo)}">${r ? fmt(r.saldo) : "incompleto"}</b>
+        <button class="lnk" data-ed="${k}">editar</button></span></li>`; }).join("")}</ul></div>` : ""}
+    <p class="leg">Anotação pessoal, salva só neste aparelho. É uma previsão: quando chegar a prévia ou o cartão da empresa, vale o registro oficial.</p></div>`;
+}
+function ligarHoje(c) {
+  const salvar = () => {
+    const an = lerAnot(), e = $("#hE").value, s = $("#hS").value;
+    if (e || s) an[diaHoje] = {e, s}; else delete an[diaHoje];
+    gravarAnot(an); preparar(c, true); iSem = c.semanas.length - 1; renderInd(true);
+  };
+  $("#hDia").onchange = e => { diaHoje = e.target.value || hojeIso(); renderInd(true); };
+  $("#hE").onchange = salvar; $("#hS").onchange = salvar;
+  document.querySelectorAll(".agora").forEach(b => b.onclick = () => { $(b.dataset.c === "e" ? "#hE" : "#hS").value = hhmm(agoraMin()); salvar(); });
+  const l = $("#hLimpar"); if (l) l.onclick = () => { if (confirm("Apagar a anotação deste dia?")) { $("#hE").value = ""; $("#hS").value = ""; salvar(); } };
+  document.querySelectorAll("[data-ed]").forEach(b => b.onclick = () => { diaHoje = b.dataset.ed; renderInd(true); });
+  atualizarContagem();
+}
+function atualizarContagem() {
+  const cd = $("#cd"); if (!cd) return;
+  if (cd.dataset.ehhoje !== "1") { cd.textContent = ""; return; }
+  const falta = +cd.dataset.alvo - agoraMin();
+  cd.innerHTML = falta > 0 ? `faltam<br><span style="font-size:20px">${fmt(falta, false)}</span>` : `jornada cumprida<br><span style="font-size:20px">há ${fmt(-falta, false)}</span>`;
+}
+
 /* ================= visão individual ================= */
-function renderInd() {
-  const c = ATUAL, v = $("#vInd");
-  if (!c.semanas.length) { v.innerHTML = "<div class='card'>Sem dados ainda.</div>"; return; }
-  const s = c.semanas[iSem], ult = c.semanas[c.semanas.length - 1];
-  const mesAtual = c.meses[c.meses.length - 1];
-  const [ma, mm] = mesAtual.k.split("-");
+function renderInd(manterScroll) {
+  const c = ATUAL, v = $("#vInd"), y = window.scrollY;
+  const colab = DADOS.perfil !== "admin";
   let h = "";
-  if (DADOS.perfil === "admin") {
+  if (!colab) {
     h += `<div class="selcol"><select id="selCol">${DADOS.colaboradores.map((x, i) =>
       `<option value="${i}" ${x === c ? "selected" : ""}>${esc(nomeBonito(x.nome))}</option>`).join("")}</select></div>`;
   }
   h += `<div class="card"><div class="pessoa"><div class="av">${iniciais(c.nome)}</div><div>
-    <b>${esc(nomeBonito(c.nome))}</b><div>${esc(c.funcao.charAt(0) + c.funcao.slice(1).toLowerCase())} · Mat. ${esc(c.matricula)}</div>
-    <div>Dados até ${dBr(c.ultimoDia, true)}</div></div></div></div>`;
+    <b>${esc(nomeBonito(c.nome))}</b><div>${esc(c.funcao.charAt(0) + c.funcao.slice(1).toLowerCase())} · Mat. ${esc(c.matricula)} · ${jorTxt(c.j)}</div>
+    <div>Dados oficiais até ${c.ultimoOficial ? dBr(c.ultimoOficial, true) : "—"}</div></div></div></div>`;
+  if (colab) h += htmlHoje(c);
+  if (!c.semanas.length) { v.innerHTML = h + "<div class='card'>Sem dados ainda.</div>"; if (colab) ligarHoje(c); return; }
+  const s = c.semanas[iSem], ult = c.semanas[c.semanas.length - 1];
+  const mesAtual = c.meses[c.meses.length - 1];
+  const [ma, mm] = mesAtual.k.split("-");
   h += `<div class="kpis">
-    <div class="kpi dest"><small>Banco de horas</small><b>${fmt(c.bancoAtual)}</b><span>saldo acumulado</span></div>
-    <div class="kpi"><small>Saldo da semana</small><b class="${cls(ult.saldo)}">${fmt(ult.saldo)}</b><span>${dBr(ult.ini)} a ${dBr(ult.fim)}</span></div>
+    <div class="kpi dest"><small>Banco de horas${c.temPrev ? " (previsto)" : ""}</small><b>${fmt(c.bancoAtual)}</b><span>${c.temPrev ? "oficial " + fmt(c.bancoOficial) + " + anotações" : "saldo acumulado oficial"}</span></div>
+    <div class="kpi"><small>Saldo da semana</small><b class="${cls(ult.saldo)}">${fmt(ult.saldo)}</b><span>${dBr(ult.ini)} a ${dBr(ult.fim)}${ult.temPrev ? " · c/ previsão" : ""}</span></div>
     <div class="kpi"><small>Saldo do mês</small><b class="${cls(mesAtual.saldo)}">${fmt(mesAtual.saldo)}</b><span>${MES[mm - 1]}/${ma}</span></div>
     <div class="kpi"><small>Horas na semana</small><b>${fmt(ult.trab, false)}</b><span>${ult.ndias} dia(s) trabalhado(s)</span></div></div>`;
-  // semana selecionada
   const chips = [`<span class="chip ${s.saldo > 0 ? "p" : s.saldo < 0 ? "n" : ""}">Saldo ${fmt(s.saldo)}</span>`,
     `<span class="chip">${fmt(s.trab, false)} trabalhadas</span>`, `<span class="chip">Banco ${fmt(s.banco)}</span>`];
   if (s.cont("feriado")) chips.push(`<span class="chip">${s.cont("feriado")} feriado</span>`);
   if (s.cont("folga_banco")) chips.push(`<span class="chip">${s.cont("folga_banco")} folga banco</span>`);
   if (s.cont("ferias")) chips.push(`<span class="chip">${s.cont("ferias")} dia(s) férias/afast.</span>`);
+  if (s.cont("previsto")) chips.push(`<span class="chip">${s.cont("previsto")} previsto(s)</span>`);
   if (s.alertas.length) chips.push(`<span class="chip w">⚠ ${s.alertas.length} alerta(s)</span>`);
   h += `<div class="card"><div class="nav"><button id="ant" ${iSem === 0 ? "disabled" : ""} aria-label="Semana anterior">‹</button>
     <div class="lab">${dBr(s.ini)} a ${dBr(s.fim, true)}<small>${s.completa ? "Semana" : "Semana parcial"} ${iSem + 1} de ${c.semanas.length}</small></div>
     <button id="prox" ${iSem === c.semanas.length - 1 ? "disabled" : ""} aria-label="Próxima semana">›</button></div>
     <div class="chips">${chips.join("")}</div><div class="dias" style="margin-top:14px">`;
   s.dias.forEach(d => {
-    const fds = d.t === "fim_semana", tag = TIPO[d.t] ? `<span class="tag ${d.a ? "w" : ""}">${d.a ? "⚠ " + esc(d.a) : TIPO[d.t]}</span>` : "";
+    const fds = d.t === "fim_semana";
+    let tag = "";
+    if (d.prev) tag = `<span class="tag g">previsto</span>`;
+    else if (d.a) tag = `<span class="tag w">⚠ ${esc(d.a)}</span>`;
+    else if (TIPO[d.t]) tag = `<span class="tag">${TIPO[d.t]}</span>`;
+    if (d.div) tag += ` <span class="tag w">≠ ${esc(d.div)}</span>`;
     const bat = d.b.length ? d.b.map(x => esc(x)).join(" · ") : (fds ? "Descanso" : "");
-    h += `<div class="dia ${fds ? "fds" : ""} ${d.a ? "al" : ""}"><div class="dt"><b>${dBr(d.dt)}</b><span>${DS[d.dt.getDay()]}</span></div>
+    h += `<div class="dia ${fds ? "fds" : ""} ${d.a || d.div ? "al" : ""} ${d.prev ? "prev" : ""}"><div class="dt"><b>${dBr(d.dt)}</b><span>${DS[d.dt.getDay()]}</span></div>
       <div><div class="bat">${bat} ${tag}</div>${barraDia(d)}</div>
       <div class="res"><b class="${cls(d.s)}">${d.s ? fmt(d.s) : (fds ? "" : "00:00")}</b><span>${d.w ? fmt(d.w, false) + " trab." : ""}</span></div></div>`;
   });
-  h += `</div><p class="leg">Barra azul = período trabalhado no dia (escala 0h–24h). * batida manual · ^ pré-assinalado · ¨ abono parcial.</p></div>`;
+  h += `</div><p class="leg">Barra = período trabalhado (0h–24h). Tracejado = previsto pela sua anotação. Hora a mais vale em dobro; dentro de ±${c.j.tol} min não conta.
+    * batida manual · ^ pré-assinalado · ¨ abono parcial.</p></div>`;
   h += `<div class="grid2"><div class="card"><h2>Saldo por semana <small>toque numa barra</small></h2>${grafSemanas(c, iSem)}</div>
     <div class="card"><h2>Evolução do banco de horas</h2>${grafBanco(c)}</div></div>`;
   h += `<div class="card"><h2>Resumo mensal</h2><div style="overflow-x:auto"><table><tr><th>Mês</th><th class="r">Dias trab.</th>
@@ -364,60 +512,76 @@ function renderInd() {
     ${[...c.meses].reverse().map(m => { const [a, mo] = m.k.split("-"); return `<tr><td>${MES[mo - 1]}/${a}</td><td class="r">${m.ndias}</td>
       <td class="r">${fmt(m.trab, false)}</td><td class="r ${cls(m.saldo)}"><b>${fmt(m.saldo)}</b></td><td class="r">${fmt(m.banco)}</td>
       <td class="r">${m.folgas}</td></tr>`; }).join("")}</table></div>
-    <p class="leg">Saldo e banco são os valores oficiais do cartão ponto. Horas trabalhadas são calculadas pelas batidas. Em caso de divergência, procure a supervisão da empresa.</p></div>`;
+    <p class="leg">Saldo e banco oficiais vêm do cartão ponto da empresa. Em caso de divergência, procure a supervisão da empresa.</p></div>`;
   v.innerHTML = h;
   ligarTip(v);
-  $("#ant").onclick = () => { iSem--; renderInd(); };
-  $("#prox").onclick = () => { iSem++; renderInd(); };
-  v.querySelectorAll("g[data-i]").forEach(g => g.addEventListener("click", () => { iSem = +g.dataset.i; renderInd(); }));
+  if (colab) ligarHoje(c);
+  $("#ant").onclick = () => { iSem--; renderInd(true); };
+  $("#prox").onclick = () => { iSem++; renderInd(true); };
+  v.querySelectorAll("g[data-i]").forEach(g => g.addEventListener("click", () => { iSem = +g.dataset.i; renderInd(true); }));
   const sc = $("#selCol"); if (sc) sc.onchange = () => { ATUAL = DADOS.colaboradores[+sc.value]; iSem = ATUAL.semanas.length - 1; renderInd(); };
-  // gesto de arrastar para trocar de semana no celular
   let x0 = null; const area = v.querySelector(".dias");
   area.addEventListener("touchstart", e => x0 = e.touches[0].clientX, {passive: true});
   area.addEventListener("touchend", e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null;
-    if (dx > 60 && iSem > 0) { iSem--; renderInd(); } else if (dx < -60 && iSem < c.semanas.length - 1) { iSem++; renderInd(); } });
+    if (dx > 60 && iSem > 0) { iSem--; renderInd(true); } else if (dx < -60 && iSem < c.semanas.length - 1) { iSem++; renderInd(true); } });
+  if (manterScroll) window.scrollTo(0, y);
 }
 
-/* ================= visão equipe (fiscal) ================= */
+/* ================= visão equipe (só chefe) ================= */
 let ordem = "nome", busca = "", semEq = null;
 function renderEquipe() {
   const C = DADOS.colaboradores, v = $("#vEquipe");
+  const lim = (DADOS.regras && DADOS.regras.limite_banco) || 6000;
   const todas = [...new Set(C.flatMap(c => c.semanas.map(s => dIso(s.ini))))].sort();
   if (!todas.length) { v.innerHTML = "<div class='card'>Sem dados ainda.</div>"; return; }
   if (!semEq || !todas.includes(semEq)) semEq = todas[todas.length - 1];
+  const ini = dParse(semEq), fimSem = addD(ini, 6);
   const linhas = C.map(c => ({ c, s: c.semanas.find(s => dIso(s.ini) === semEq) }));
-  const al30 = C.flatMap(c => c.dias.filter(d => d.a && (c.ultimoDia - d.dt) / 864e5 <= 30).map(d => ({c, d})));
+  const al30 = C.flatMap(c => c.diasTodos.filter(d => d.a && (c.ultimoDia - d.dt) / 864e5 <= 30).map(d => ({c, d})));
   const somaSaldo = linhas.reduce((a, l) => a + (l.s ? l.s.saldo : 0), 0);
   const somaBanco = C.reduce((a, c) => a + (c.bancoAtual || 0), 0);
+  // ---- avisos do fiscal
+  const altos = C.filter(c => (c.bancoAtual || 0) > lim).sort((a, b) => b.bancoAtual - a.bancoAtual);
+  const ultDado = new Date(Math.max(...C.map(c => c.ultimoDia || 0)));
+  const mesRef = dIso(fimSem < ultDado ? fimSem : (ultDado >= ini ? ultDado : fimSem)).slice(0, 7);
+  const folgas = C.map(c => ({c, ds: c.diasTodos.filter(d => d.t === "folga_banco" && d.d.slice(0, 7) === mesRef)})).filter(x => x.ds.length);
+  const [ar, mr] = mesRef.split("-");
   let L = linhas.filter(l => nomeBonito(l.c.nome).toLowerCase().includes(busca.toLowerCase()) || l.c.matricula.includes(busca));
   const ord = {nome: (a, b) => a.c.nome.localeCompare(b.c.nome), banco: (a, b) => (b.c.bancoAtual || 0) - (a.c.bancoAtual || 0),
     saldo: (a, b) => (a.s?.saldo || 0) - (b.s?.saldo || 0), alerta: (a, b) => (b.s?.alertas.length || 0) - (a.s?.alertas.length || 0)};
   L.sort(ord[ordem]);
-  const ini = dParse(semEq);
   let h = `<div class="kpis">
     <div class="kpi dest"><small>Colaboradores</small><b>${C.length}</b><span>com dados no painel</span></div>
     <div class="kpi"><small>Saldo da equipe</small><b class="${cls(somaSaldo)}">${fmt(somaSaldo)}</b><span>semana selecionada</span></div>
-    <div class="kpi"><small>Banco total</small><b>${fmt(somaBanco)}</b><span>soma dos bancos</span></div>
-    <div class="kpi"><small>Alertas (30 dias)</small><b class="${al30.length ? "neg" : "neu"}">${al30.length}</b><span>batidas a conferir</span></div></div>`;
+    <div class="kpi"><small>Banco acima de ${lim / 60}h</small><b class="${altos.length ? "neg" : "neu"}">${altos.length}</b><span>colaborador(es)</span></div>
+    <div class="kpi"><small>Banco total</small><b>${fmt(somaBanco)}</b><span>soma dos bancos</span></div></div>`;
+  h += `<div class="grid2">
+    <div class="card ${altos.length ? "alerta-chefe" : ""}"><h2>🔴 Banco acima de ${lim / 60}h <small>${altos.length} pessoa(s)</small></h2>
+      ${altos.length ? `<ul class="lista">${altos.map(c => `<li><span>${esc(nomeBonito(c.nome))}</span><b class="neg">${fmt(c.bancoAtual)}</b></li>`).join("")}</ul>
+      <p class="leg">Vale planejar folgas com banco de horas para essas pessoas.</p>` : "<p class='leg'>Ninguém acima do limite. 👍</p>"}</div>
+    <div class="card"><h2>🏖 Folgas com banco de horas <small>${MES[mr - 1]}/${ar}</small></h2>
+      ${folgas.length ? `<ul class="lista">${folgas.map(({c, ds}) => `<li><span>${esc(nomeBonito(c.nome))}</span><span>${ds.map(d => dBr(d.dt)).join(", ")} <b class="neg">${fmt(ds.reduce((a, d) => a + d.s, 0))}</b></span></li>`).join("")}</ul>`
+        : "<p class='leg'>Nenhuma folga com banco neste mês.</p>"}</div></div>`;
   const i = todas.indexOf(semEq);
   h += `<div class="card"><div class="nav"><button id="eAnt" ${i === 0 ? "disabled" : ""}>‹</button>
-    <div class="lab">Semana ${dBr(ini)} a ${dBr(addD(ini, 6), true)}<small>visão da equipe</small></div>
+    <div class="lab">Semana ${dBr(ini)} a ${dBr(fimSem, true)}<small>visão da equipe · o mês dos avisos acompanha a semana</small></div>
     <button id="eProx" ${i === todas.length - 1 ? "disabled" : ""}>›</button></div></div>`;
   h += `<div class="tools"><input id="busca" placeholder="Buscar nome ou matrícula" value="${esc(busca)}">
     <select id="ordem"><option value="nome">Ordenar: nome</option><option value="banco">Maior banco</option>
     <option value="saldo">Menor saldo na semana</option><option value="alerta">Com alertas</option></select>
     <button class="sbtn" id="csv">⬇ Exportar CSV</button></div><div class="equipe">`;
   L.forEach(({c, s}) => {
-    const al = s ? s.alertas.length : 0;
-    h += `<button class="mem" data-m="${esc(c.matricula)}"><div class="h"><div class="av">${iniciais(c.nome)}</div>
-      <div style="flex:1;min-width:0"><b>${esc(nomeBonito(c.nome))}</b><span>Mat. ${esc(c.matricula)}${al ? ` · <span class="tag w">⚠ ${al}</span>` : ""}</span></div></div>
+    const al = s ? s.alertas.length : 0, alto = (c.bancoAtual || 0) > lim;
+    const fol = s ? s.cont("folga_banco") : 0;
+    h += `<button class="mem ${alto ? "alto" : ""}" data-m="${esc(c.matricula)}"><div class="h"><div class="av">${iniciais(c.nome)}</div>
+      <div style="flex:1;min-width:0"><b>${esc(nomeBonito(c.nome))}</b><span>Mat. ${esc(c.matricula)} · ${c.j.min / 60}h${al ? ` · <span class="tag w">⚠ ${al}</span>` : ""}${fol ? ` · <span class="tag">🏖 ${fol}</span>` : ""}${alto ? ` · <span class="tag w">+${lim / 60}h</span>` : ""}</span></div></div>
       <div class="n"><div><small>Saldo semana</small><b class="${cls(s?.saldo)}">${s ? fmt(s.saldo) : "—"}</b></div>
       <div><small>Horas</small><b>${s ? fmt(s.trab, false) : "—"}</b></div>
-      <div><small>Banco</small><b>${fmt(c.bancoAtual)}</b></div></div></button>`;
+      <div><small>Banco</small><b class="${alto ? "neg" : ""}">${fmt(c.bancoAtual)}</b></div></div></button>`;
   });
   h += `</div>`;
-  h += `<div class="card" style="margin-top:14px"><h2>Pontos de atenção <small>últimos 30 dias</small></h2>${al30.length ? `<ul class="alertas">${al30
-    .sort((a, b) => b.d.dt - a.d.dt).map(({c, d}) => `<li><b>${dBr(d.dt, true)}</b> · ${esc(nomeBonito(c.nome))} — ${esc(d.a)}${d.b.length ? " (" + d.b.join(" ") + ")" : ""}</li>`).join("")}</ul>`
+  h += `<div class="card" style="margin-top:14px"><h2>Pontos de atenção <small>últimos 30 dias</small></h2>${al30.length ? `<ul class="lista">${al30
+    .sort((a, b) => b.d.dt - a.d.dt).map(({c, d}) => `<li><span><b>${dBr(d.dt, true)}</b> · ${esc(nomeBonito(c.nome))} — ${esc(d.a)}${d.b.length ? " (" + d.b.join(" ") + ")" : ""}</span></li>`).join("")}</ul>`
     : "<p class='leg'>Nenhum alerta. 👍</p>"}</div>`;
   v.innerHTML = h;
   $("#ordem").value = ordem;
@@ -426,12 +590,12 @@ function renderEquipe() {
   $("#eAnt").onclick = () => { semEq = todas[i - 1]; renderEquipe(); };
   $("#eProx").onclick = () => { semEq = todas[i + 1]; renderEquipe(); };
   v.querySelectorAll(".mem").forEach(b => b.onclick = () => { ATUAL = C.find(c => c.matricula === b.dataset.m); mostrar("ind"); });
-  $("#csv").onclick = () => exportarCSV(linhas, ini);
+  $("#csv").onclick = () => exportarCSV(linhas, ini, lim);
 }
-function exportarCSV(linhas, ini) {
-  const rows = [["Colaborador", "Matrícula", "Semana", "Dias trabalhados", "Horas trabalhadas", "Saldo semana", "Banco fim semana", "Banco atual", "Alertas"]];
+function exportarCSV(linhas, ini, lim) {
+  const rows = [["Colaborador", "Matrícula", "Semana", "Dias trabalhados", "Horas trabalhadas", "Saldo semana", "Banco fim semana", "Banco atual", `Acima de ${lim / 60}h`, "Folgas banco (semana)", "Alertas"]];
   linhas.forEach(({c, s}) => rows.push([nomeBonito(c.nome), c.matricula, dBr(ini, true), s?.ndias ?? "", s ? fmt(s.trab, false) : "",
-    s ? fmt(s.saldo) : "", s ? fmt(s.banco) : "", fmt(c.bancoAtual), s?.alertas.length ?? ""]));
+    s ? fmt(s.saldo) : "", s ? fmt(s.banco) : "", fmt(c.bancoAtual), (c.bancoAtual || 0) > lim ? "sim" : "", s ? s.cont("folga_banco") : "", s?.alertas.length ?? ""]));
   const csv = "\ufeff" + rows.map(r => r.map(x => `"${String(x).replace(/"/g, '""')}"`).join(";")).join("\r\n");
   const a = document.createElement("a");
   a.href = URL.createObjectURL(new Blob([csv], {type: "text/csv;charset=utf-8"}));
