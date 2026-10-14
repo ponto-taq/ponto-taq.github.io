@@ -58,17 +58,29 @@ main{max-width:1100px;margin:0 auto;padding:16px 14px 40px}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;justify-content:center}
 .chip{font-size:12px;padding:4px 10px;border-radius:999px;background:#eef2f7;color:#374151;font-weight:600}
 .chip.w{background:var(--warnbg);color:var(--warn)}.chip.p{background:var(--posbg);color:var(--pos)}.chip.n{background:var(--negbg);color:var(--neg)}
-.dias{display:flex;flex-direction:column;gap:8px}
-.dia{border:1px solid var(--bord);border-radius:14px;padding:11px 12px;display:grid;grid-template-columns:62px 1fr auto;gap:10px;align-items:center}
-.dia.fds{background:#fafbfc;opacity:.7}.dia.al{border-color:#fdba74;background:#fffaf5}
-.dia.prev{border-style:dashed;background:#f8fafc}
-.dt b{display:block;font-size:17px}.dt span{font-size:12px;color:var(--sub);text-transform:uppercase;font-weight:700}
-.bat{font-variant-numeric:tabular-nums;font-size:14px}
-.bar{position:relative;height:8px;background:#eef2f7;border-radius:6px;margin-top:7px}
-.bar i{position:absolute;top:0;bottom:0;border-radius:6px;background:linear-gradient(90deg,#60a5fa,var(--azul2))}
-.prev .bar i{background:repeating-linear-gradient(45deg,#94a3b8 0 6px,#cbd5e1 6px 12px)}
-.bar em{position:absolute;top:-3px;bottom:-3px;width:1px;background:#cbd5e1}
-.res{text-align:right;font-variant-numeric:tabular-nums}.res b{display:block;font-size:15px}.res span{font-size:12px;color:var(--sub)}
+/* ---------- folha mensal ---------- */
+.folha{overflow-x:auto;margin:14px -4px 0;-webkit-overflow-scrolling:touch}
+.folha table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:300px}
+.folha th{position:sticky;top:0;background:#eef2f7;color:#374151;font-size:11.5px;text-transform:uppercase;letter-spacing:.03em;
+  font-weight:700;padding:8px 6px;text-align:center;border-bottom:1px solid var(--bord)}
+.folha th:first-child{text-align:left;border-radius:8px 0 0 0}.folha th:last-child{border-radius:0 8px 0 0}
+.folha td{padding:7px 6px;border-bottom:1px solid #f1f3f6;text-align:center;font-variant-numeric:tabular-nums;white-space:nowrap}
+.folha td.d{text-align:left;font-weight:700}.folha td.d span{font-weight:600;color:var(--sub);font-size:11.5px;text-transform:uppercase;margin-left:4px}
+.folha td.r{text-align:right}
+.folha td.cod{color:#475569;font-weight:600;font-size:12.5px;letter-spacing:.02em}
+.folha tr.fds td{background:#fafbfc;color:#9ca3af}
+.folha tr.fds td.d span{color:#cbd5e1}
+.folha tr.fim td{border-bottom:2px solid #dbe3ee}
+.folha tr.vazio td{color:#cbd5e1}
+.folha tr.hoje td{background:#eff6ff}
+.folha tr.prev td{background:repeating-linear-gradient(135deg,#f8fafc 0 8px,#f1f5f9 8px 16px);color:#475569;font-style:italic}
+.folha tr.al td{background:#fff7ed}
+.folha tr.nota td{padding:0 6px 7px;text-align:left;font-size:12px;border-bottom:1px solid #f1f3f6}
+.folha tr.nota.al td{background:#fff7ed;color:var(--warn);font-weight:600}
+.folha tr.nota.pv td{background:#f8fafc;color:#64748b}
+.folha .pre{color:#94a3b8}
+.folha tfoot td{font-weight:800;background:#eef2f7;border-bottom:0;padding:9px 6px}
+.folha tfoot td:first-child{border-radius:0 0 0 8px}.folha tfoot td:last-child{border-radius:0 0 8px 0}
 .tag{display:inline-block;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;background:#eef2f7}
 .tag.w{background:var(--warnbg);color:var(--warn)}.tag.g{background:#e2e8f0;color:#475569}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -78,6 +90,7 @@ table{width:100%;border-collapse:collapse;font-size:14px}
 th{text-align:left;font-size:12px;color:var(--sub);font-weight:600;padding:8px;border-bottom:1px solid var(--bord)}
 td{padding:9px 8px;border-bottom:1px solid #f1f3f6;font-variant-numeric:tabular-nums}
 .r{text-align:right}
+.resumo tr{cursor:pointer}.resumo tr.sel td{background:#eff6ff;font-weight:700}
 .tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
 .tools input{flex:1;min-width:160px;padding:10px 12px;font-size:15px}
 .tools select{width:auto;padding:10px 12px;font-size:14px}
@@ -112,7 +125,9 @@ td{padding:9px 8px;border-bottom:1px solid #f1f3f6;font-variant-numeric:tabular-
 .lnk.del{color:var(--neg)}
 .alerta-chefe{border-left:4px solid var(--neg)}
 @media(max-width:820px){.kpis{grid-template-columns:1fr 1fr}.grid2{grid-template-columns:1fr}.kpi b{font-size:22px}}
-@media(max-width:380px){.dia{grid-template-columns:52px 1fr auto}.kpi b{font-size:20px}.prevbox b{font-size:28px}.mini b{font-size:14px}}
+@media(max-width:430px){.folha table{font-size:12.5px}.folha td,.folha th{padding-left:3px;padding-right:3px}.folha .ctrab{display:none}}
+@media(max-width:380px){.kpi b{font-size:20px}.prevbox b{font-size:28px}.mini b{font-size:14px}}
+@media print{header.top,.hoje,.nav button,.selcol,.grid2,.kpis{display:none!important}body{background:#fff}.card{box-shadow:none}}
 </style>
 </head>
 <body>
@@ -156,6 +171,7 @@ td{padding:9px 8px;border-bottom:1px solid #f1f3f6;font-variant-numeric:tabular-
 const $ = s => document.querySelector(s);
 const DS = ["dom","seg","ter","qua","qui","sex","sáb"];
 const MES = ["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"];
+const MESX = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
 const fmt = (m, sinal = true) => {
   if (m === null || m === undefined) return "—";
   const s = m < 0 ? "-" : (sinal ? "+" : ""); m = Math.abs(Math.round(m));
@@ -176,6 +192,7 @@ const nomeBonito = n => n.toLowerCase().split(" ").map(p => ["de","da","do","das
 const iniciais = n => { const p = n.split(" ").filter(x => x.length > 2); return (p[0][0] + (p.length > 1 ? p[p.length - 1][0] : "")).toUpperCase(); };
 const TIPO = {feriado:"Feriado", folga_banco:"Folga (banco)", ferias:"Férias/afast.", sem_registro:"Sem registro", incompleto:"Incompleto"};
 const jorTxt = j => (j.min % 60 ? fmt(j.min, false) : (j.min / 60) + "h") + (j.int ? ` + ${j.int} min de intervalo` : " direto");
+const HORA_OK = v => /^([01]\d|2[0-3]):[0-5]\d$/.test(v);
 
 /* regra da CCT: dentro da tolerância = 0; hora a mais × fator; hora a menos × 1 */
 function saldoRegra(trab, j, fator) {
@@ -226,9 +243,10 @@ function preparar(c, comAnot) {
   c.anot = comAnot ? lerAnot() : {};
   dias.forEach(d => {
     const a = c.anot[d.d];
-    if (a && a.e && a.s && d.b.length >= 2) {
-      const e0 = toMin(d.b[0]), s0 = toMin(d.b[d.b.length - 1]);
-      if (Math.abs(e0 - toMin(a.e)) > 2 || Math.abs(s0 - toMin(a.s)) > 2) d.div = `Sua anotação: ${a.e}–${a.s}`;
+    const reais = d.b.filter(x => !x.endsWith("^"));
+    if (a && a.e && a.s && reais.length >= 2) {
+      const e0 = toMin(reais[0]), s0 = toMin(reais[reais.length - 1]);
+      if (Math.abs(e0 - toMin(a.e)) > 2 || Math.abs(s0 - toMin(a.s)) > 2) d.div = `Sua anotação foi ${a.e}–${a.s}`;
     }
   });
   let banco = ultOfi ? ultOfi.bh : 0;
@@ -237,8 +255,7 @@ function preparar(c, comAnot) {
     const r = calcAnot(c.anot[k], c.j, fator); if (!r) return;
     banco += r.saldo;
     const a = c.anot[k];
-    dias.push({d: k, dt: dParse(k), b: c.j.int ? [a.e, "intervalo", a.s] : [a.e, a.s], s: r.saldo, bh: banco,
-      t: "previsto", w: r.trab, a: "", prev: true});
+    dias.push({d: k, dt: dParse(k), b: [a.e, a.s], s: r.saldo, bh: banco, t: "previsto", w: r.trab, a: "", prev: true});
   });
   dias.sort((x, y) => x.d.localeCompare(y.d));
   c.diasTodos = dias;
@@ -248,7 +265,7 @@ function preparar(c, comAnot) {
   c.semanas = [...sem.entries()].sort().map(([k, ds]) => {
     const ini = dParse(k);
     const bancoFim = [...ds].reverse().find(d => d.bh !== null);
-    return { ini, fim: addD(ini, 6), dias: ds, completa: ds.length === 7, temPrev: ds.some(d => d.prev),
+    return { ini, fim: addD(ini, 6), dias: ds, temPrev: ds.some(d => d.prev),
       saldo: ds.reduce((a, d) => a + (d.s || 0), 0),
       trab: ds.reduce((a, d) => a + (d.w || 0), 0),
       ndias: ds.filter(d => ["trabalhado", "incompleto", "previsto"].includes(d.t)).length,
@@ -262,7 +279,9 @@ function preparar(c, comAnot) {
     saldo: ds.reduce((a, d) => a + (d.s || 0), 0), trab: ds.reduce((a, d) => a + (d.w || 0), 0),
     ndias: ds.filter(d => ["trabalhado", "incompleto", "previsto"].includes(d.t)).length,
     banco: [...ds].reverse().find(d => d.bh !== null)?.bh ?? null,
-    folgas: ds.filter(d => d.t === "folga_banco").length }));
+    temPrev: ds.some(d => d.prev),
+    alertas: ds.filter(d => d.a).length,
+    cont: t => ds.filter(d => d.t === t).length }));
   c.bancoOficial = ultOfi ? ultOfi.bh : null;
   c.ultimoOficial = ultOfi ? ultOfi.dt : null;
   c.bancoAtual = c.temPrev ? banco : c.bancoOficial;
@@ -271,8 +290,9 @@ function preparar(c, comAnot) {
 }
 
 /* estado */
-let DADOS = null, ATUAL = null, iSem = 0, timerInat = null, timerCd = null, diaHoje = hojeIso();
+let DADOS = null, ATUAL = null, iMes = 0, timerInat = null, timerCd = null, diaHoje = hojeIso();
 const ehChefe = () => !!DADOS && DADOS.perfil === "admin";
+const mesDe = (c, iso) => { const i = c.meses.findIndex(m => m.k === iso.slice(0, 7)); return i < 0 ? c.meses.length - 1 : i; };
 
 $("#ver").onclick = () => { const s = $("#s"); s.type = s.type === "password" ? "text" : "password"; };
 $("#flogin").onsubmit = async ev => {
@@ -323,7 +343,7 @@ function mostrar(v) {
   document.querySelectorAll(".tab").forEach(t => t.classList.toggle("on", t.dataset.v === v));
   $("#vEquipe").classList.toggle("hide", v !== "equipe");
   $("#vInd").classList.toggle("hide", v !== "ind");
-  if (v === "equipe") renderEquipe(); else { iSem = ATUAL.semanas.length - 1; renderInd(); }
+  if (v === "equipe") renderEquipe(); else { iMes = ATUAL.meses.length - 1; renderInd(); }
   window.scrollTo(0, 0);
 }
 
@@ -340,23 +360,23 @@ function ligarTip(root) {
 }
 
 /* gráficos */
-function grafSemanas(c, sel) {
-  const S = c.semanas.slice(-12), off = c.semanas.length - S.length;
-  const W = 640, H = 210, pad = 10, top = 26, base = H / 2 + 5;
-  const max = Math.max(60, ...S.map(s => Math.abs(s.saldo)));
-  const lw = (W - 2 * pad) / S.length;
-  let g = `<svg viewBox="0 0 ${W} ${H + 24}" width="100%" style="touch-action:pan-y">`;
-  g += `<line x1="${pad}" x2="${W - pad}" y1="${base}" y2="${base}" stroke="#cbd5e1"/>`;
-  S.forEach((s, i) => {
-    const h = Math.abs(s.saldo) / max * (H / 2 - top), x = pad + i * lw + lw * .16, w = lw * .68;
-    const y = s.saldo >= 0 ? base - h : base, idx = off + i, on = idx === sel;
-    const cor = s.saldo >= 0 ? (on ? "#047857" : "#34d399") : (on ? "#b91c1c" : "#f87171");
-    g += `<g data-i="${idx}" style="cursor:pointer" data-tip="Semana ${dBr(s.ini)}–${dBr(s.fim)}${s.temPrev ? " (com previsão)" : ""}<br>Saldo <b>${fmt(s.saldo)}</b> · Banco ${fmt(s.banco)}">
-      <rect x="${x - lw * .16}" y="0" width="${lw}" height="${H + 24}" fill="${on ? "#eff6ff" : "transparent"}" rx="8"/>
-      <rect x="${x}" y="${y}" width="${w}" height="${Math.max(h, 2)}" rx="5" fill="${cor}" ${s.temPrev ? 'fill-opacity=".55" stroke="' + cor + '" stroke-dasharray="4 3"' : ""}/>
-      <text x="${x + w / 2}" y="${s.saldo >= 0 ? y - 6 : y + h + 17}" font-size="15" text-anchor="middle" fill="#374151" font-weight="${on ? 700 : 500}">${fmt(s.saldo)}</text>
-      <text x="${x + w / 2}" y="${H + 16}" font-size="14" text-anchor="middle" fill="#6b7280">${dBr(s.ini)}</text></g>`;
-  });
+function grafDias(m) {
+  const [y, mo] = m.k.split("-").map(Number), nd = new Date(y, mo, 0).getDate();
+  const porDia = new Map(m.ds.map(d => [d.dt.getDate(), d]));
+  const W = 640, H = 200, pad = 6, base = H / 2 + 4, top = 22;
+  const max = Math.max(60, ...m.ds.map(d => Math.abs(d.s || 0)));
+  const lw = (W - 2 * pad) / nd;
+  let g = `<svg viewBox="0 0 ${W} ${H + 22}" width="100%"><line x1="${pad}" x2="${W - pad}" y1="${base}" y2="${base}" stroke="#cbd5e1"/>`;
+  for (let i = 1; i <= nd; i++) {
+    const d = porDia.get(i), x = pad + (i - 1) * lw + lw * .15, w = lw * .7;
+    if (d && d.s) {
+      const h = Math.abs(d.s) / max * (H / 2 - top), yy = d.s >= 0 ? base - h : base;
+      const cor = d.s >= 0 ? "#34d399" : "#f87171";
+      g += `<rect x="${x}" y="${yy}" width="${w}" height="${Math.max(h, 2)}" rx="3" fill="${cor}" ${d.prev ? 'fill-opacity=".45" stroke="' + cor + '" stroke-dasharray="3 2"' : ""}
+        data-tip="${dBr(d.dt)} (${DS[d.dt.getDay()]})${d.prev ? " · previsto" : ""}<br>Saldo <b>${fmt(d.s)}</b> · Banco ${fmt(d.bh)}"/>`;
+    }
+    if (i === 1 || i % 5 === 0) g += `<text x="${x + w / 2}" y="${H + 16}" font-size="13" text-anchor="middle" fill="#6b7280">${i}</text>`;
+  }
   return g + "</svg>";
 }
 function grafBanco(c) {
@@ -385,16 +405,42 @@ function grafBanco(c) {
     data-tip="${dBr(d.dt, true)} (${DS[d.dt.getDay()]})${d.prev ? " · previsto" : ""}<br>Banco <b>${fmt(d.bh)}</b> · dia ${fmt(d.s)}"/>`);
   return g + "</svg>";
 }
-function barraDia(d) {
-  const hs = d.b.filter(x => /^\d\d:\d\d/.test(x));
-  if (hs.length < 2) return "";
-  const p = m => (m / 1440 * 100).toFixed(2) + "%";
-  let s = `<div class="bar"><em style="left:25%"></em><em style="left:50%"></em><em style="left:75%"></em>`;
-  for (let i = 0; i + 1 < hs.length; i += 2) {
-    const a = toMin(hs[i]); let b = toMin(hs[i + 1]); if (b < a) b = 1440;
-    s += `<i style="left:${p(a)};width:${p(Math.max(b - a, 4))}"></i>`;
+
+/* folha de ponto do mês */
+const COD = {feriado: "FERIADO", folga_banco: "FOLGA (BANCO)", ferias: "FÉRIAS / AFAST."};
+function htmlFolha(c, m) {
+  const [y, mo] = m.k.split("-").map(Number), nd = new Date(y, mo, 0).getDate();
+  const porDia = new Map(m.ds.map(d => [d.dt.getDate(), d]));
+  const hoje = hojeIso();
+  const bat = x => x ? `<span class="${x.endsWith("^") ? "pre" : ""}">${esc(x)}</span>` : "";
+  let rows = "";
+  for (let i = 1; i <= nd; i++) {
+    const dt = new Date(y, mo - 1, i), iso = dIso(dt), d = porDia.get(i), wd = dt.getDay();
+    const fds = wd === 0 || wd === 6;
+    const k = ["", fds ? "fds" : "", wd === 0 ? "fim" : "", iso === hoje ? "hoje" : ""];
+    const cDia = `<td class="d">${String(i).padStart(2, "0")}<span>${DS[wd]}</span></td>`;
+    if (!d) {
+      rows += `<tr class="${k.join(" ")} vazio">${cDia}<td colspan="4"></td><td class="ctrab"></td><td class="r"></td><td class="r"></td></tr>`;
+      continue;
+    }
+    if (d.prev) k.push("prev"); if (d.a || d.div) k.push("al");
+    let meio;
+    if (COD[d.t]) meio = `<td colspan="4" class="cod">${COD[d.t]}</td>`;
+    else if (!d.b.length) meio = `<td colspan="4"></td>`;
+    else { const b = d.b.slice(0, 4); while (b.length < 4) b.push(""); meio = b.map(x => `<td>${bat(x)}</td>`).join(""); }
+    rows += `<tr class="${k.join(" ")}">${cDia}${meio}<td class="ctrab">${d.w ? fmt(d.w, false) : ""}</td>
+      <td class="r ${cls(d.s)}"><b>${d.s ? fmt(d.s) : (fds && !d.b.length ? "" : "00:00")}</b></td><td class="r">${fmt(d.bh)}</td></tr>`;
+    const notas = [];
+    if (d.a) notas.push(["al", "⚠ " + d.a + (d.b.length ? " (" + d.b.join(" ") + ")" : "")]);
+    if (d.div) notas.push(["al", "≠ " + d.div + ". Vale o registro oficial."]);
+    if (d.prev) notas.push(["pv", "Previsto pela sua anotação. Será substituído pelo registro da empresa."]);
+    notas.forEach(([t, n]) => rows += `<tr class="nota ${t} ${k.includes("fim") ? "fim" : ""}"><td colspan="8">${esc(n)}</td></tr>`);
   }
-  return s + "</div>";
+  return `<div class="folha"><table><thead><tr><th>Dia</th><th>Ent.</th><th>Saí.</th><th>Ent.</th><th>Saí.</th>
+    <th class="ctrab">Trab.</th><th style="text-align:right">Saldo</th><th style="text-align:right">Banco</th></tr></thead>
+    <tbody>${rows}</tbody>
+    <tfoot><tr><td style="text-align:left">Total</td><td colspan="4"></td><td class="ctrab">${fmt(m.trab, false)}</td>
+    <td class="r ${cls(m.saldo)}">${fmt(m.saldo)}</td><td class="r">${fmt(m.banco)}</td></tr></tfoot></table></div>`;
 }
 
 /* cartão "Minha jornada" (colaborador) */
@@ -444,21 +490,20 @@ function htmlHoje(c) {
 }
 function ligarHoje(c) {
   const salvar = () => {
-    const ok = v => /^([01]\d|2[0-3]):[0-5]\d$/.test(v) ? v : "";
+    const ok = v => HORA_OK(v) ? v : "";
     const an = lerAnot(), e = ok($("#hE").value), s = ok($("#hS").value);
     if (e || s) an[diaHoje] = {e, s}; else delete an[diaHoje];
-    gravarAnot(an); preparar(c, true); iSem = c.semanas.length - 1; renderInd(true);
+    gravarAnot(an); preparar(c, true); iMes = mesDe(c, diaHoje); renderInd(true);
   };
   $("#hDia").onchange = e => { diaHoje = e.target.value || hojeIso(); renderInd(true); };
   // digitação com máscara: só salva quando a hora estiver completa (4 dígitos)
-  const valida = v => /^([01]\d|2[0-3]):[0-5]\d$/.test(v);
   document.querySelectorAll("input.hora").forEach(inp => {
     inp.addEventListener("input", () => {
-      let d = inp.value.replace(/\D/g, "").slice(0, 4);
+      const d = inp.value.replace(/\D/g, "").slice(0, 4);
       inp.value = d.length > 2 ? d.slice(0, 2) + ":" + d.slice(2) : d;
       inp.style.borderColor = "";
       if (d.length === 4) {
-        if (!valida(inp.value)) { inp.style.borderColor = "var(--neg)"; return; }
+        if (!HORA_OK(inp.value)) { inp.style.borderColor = "var(--neg)"; return; }
         const prox = inp.id === "hE" && !$("#hS").value;
         salvar();
         if (prox) $("#hS").focus();   // depois da entrada, vai direto para a saída
@@ -467,7 +512,7 @@ function ligarHoje(c) {
     inp.addEventListener("blur", () => {
       if (inp.value === "") { const an = lerAnot(); const k = inp.id === "hE" ? "e" : "s";
         if (an[diaHoje] && an[diaHoje][k]) salvar(); }
-      else if (!valida(inp.value)) inp.style.borderColor = "var(--neg)";
+      else if (!HORA_OK(inp.value)) inp.style.borderColor = "var(--neg)";
     });
     inp.addEventListener("focus", () => inp.select());
   });
@@ -496,59 +541,44 @@ function renderInd(manterScroll) {
     <b>${esc(nomeBonito(c.nome))}</b><div>${esc(c.funcao.charAt(0) + c.funcao.slice(1).toLowerCase())} · Mat. ${esc(c.matricula)} · ${jorTxt(c.j)}</div>
     <div>Dados oficiais até ${c.ultimoOficial ? dBr(c.ultimoOficial, true) : "—"}</div></div></div></div>`;
   if (colab) h += htmlHoje(c);
-  if (!c.semanas.length) { v.innerHTML = h + "<div class='card'>Sem dados ainda.</div>"; if (colab) ligarHoje(c); return; }
-  const s = c.semanas[iSem], ult = c.semanas[c.semanas.length - 1];
-  const mesAtual = c.meses[c.meses.length - 1];
-  const [ma, mm] = mesAtual.k.split("-");
+  if (!c.meses.length) { v.innerHTML = h + "<div class='card'>Sem dados ainda.</div>"; if (colab) ligarHoje(c); return; }
+  if (iMes < 0 || iMes >= c.meses.length) iMes = c.meses.length - 1;
+  const m = c.meses[iMes], ult = c.semanas[c.semanas.length - 1];
+  const [ma, mm] = m.k.split("-").map(Number);
   h += `<div class="kpis">
     <div class="kpi dest"><small>Banco de horas${c.temPrev ? " (previsto)" : ""}</small><b>${fmt(c.bancoAtual)}</b><span>${c.temPrev ? "oficial " + fmt(c.bancoOficial) + " + anotações" : "saldo acumulado oficial"}</span></div>
     <div class="kpi"><small>Saldo da semana</small><b class="${cls(ult.saldo)}">${fmt(ult.saldo)}</b><span>${dBr(ult.ini)} a ${dBr(ult.fim)}${ult.temPrev ? " · c/ previsão" : ""}</span></div>
-    <div class="kpi"><small>Saldo do mês</small><b class="${cls(mesAtual.saldo)}">${fmt(mesAtual.saldo)}</b><span>${MES[mm - 1]}/${ma}</span></div>
-    <div class="kpi"><small>Horas na semana</small><b>${fmt(ult.trab, false)}</b><span>${ult.ndias} dia(s) trabalhado(s)</span></div></div>`;
-  const chips = [`<span class="chip ${s.saldo > 0 ? "p" : s.saldo < 0 ? "n" : ""}">Saldo ${fmt(s.saldo)}</span>`,
-    `<span class="chip">${fmt(s.trab, false)} trabalhadas</span>`, `<span class="chip">Banco ${fmt(s.banco)}</span>`];
-  if (s.cont("feriado")) chips.push(`<span class="chip">${s.cont("feriado")} feriado</span>`);
-  if (s.cont("folga_banco")) chips.push(`<span class="chip">${s.cont("folga_banco")} folga banco</span>`);
-  if (s.cont("ferias")) chips.push(`<span class="chip">${s.cont("ferias")} dia(s) férias/afast.</span>`);
-  if (s.cont("previsto")) chips.push(`<span class="chip">${s.cont("previsto")} previsto(s)</span>`);
-  if (s.alertas.length) chips.push(`<span class="chip w">⚠ ${s.alertas.length} alerta(s)</span>`);
-  h += `<div class="card"><div class="nav"><button id="ant" ${iSem === 0 ? "disabled" : ""} aria-label="Semana anterior">‹</button>
-    <div class="lab">${dBr(s.ini)} a ${dBr(s.fim, true)}<small>${s.completa ? "Semana" : "Semana parcial"} ${iSem + 1} de ${c.semanas.length}</small></div>
-    <button id="prox" ${iSem === c.semanas.length - 1 ? "disabled" : ""} aria-label="Próxima semana">›</button></div>
-    <div class="chips">${chips.join("")}</div><div class="dias" style="margin-top:14px">`;
-  s.dias.forEach(d => {
-    const fds = d.t === "fim_semana";
-    let tag = "";
-    if (d.prev) tag = `<span class="tag g">previsto</span>`;
-    else if (d.a) tag = `<span class="tag w">⚠ ${esc(d.a)}</span>`;
-    else if (TIPO[d.t]) tag = `<span class="tag">${TIPO[d.t]}</span>`;
-    if (d.div) tag += ` <span class="tag w">≠ ${esc(d.div)}</span>`;
-    const bat = d.b.length ? d.b.map(x => esc(x)).join(" · ") : (fds ? "Descanso" : "");
-    h += `<div class="dia ${fds ? "fds" : ""} ${d.a || d.div ? "al" : ""} ${d.prev ? "prev" : ""}"><div class="dt"><b>${dBr(d.dt)}</b><span>${DS[d.dt.getDay()]}</span></div>
-      <div><div class="bat">${bat} ${tag}</div>${barraDia(d)}</div>
-      <div class="res"><b class="${cls(d.s)}">${d.s ? fmt(d.s) : (fds ? "" : "00:00")}</b><span>${d.w ? fmt(d.w, false) + " trab." : ""}</span></div></div>`;
-  });
-  h += `</div><p class="leg">Barra = período trabalhado (0h–24h). Tracejado = previsto pela sua anotação. Hora a mais vale em dobro; dentro de ±${c.j.tol} min não conta.
-    * batida manual · ^ pré-assinalado · ¨ abono parcial.</p></div>`;
-  h += `<div class="grid2"><div class="card"><h2>Saldo por semana <small>toque numa barra</small></h2>${grafSemanas(c, iSem)}</div>
+    <div class="kpi"><small>Saldo do mês</small><b class="${cls(m.saldo)}">${fmt(m.saldo)}</b><span>${MES[mm - 1]}/${ma}</span></div>
+    <div class="kpi"><small>Horas no mês</small><b>${fmt(m.trab, false)}</b><span>${m.ndias} dia(s) trabalhado(s)</span></div></div>`;
+  const chips = [`<span class="chip ${m.saldo > 0 ? "p" : m.saldo < 0 ? "n" : ""}">Saldo ${fmt(m.saldo)}</span>`,
+    `<span class="chip">${m.ndias} dias trabalhados</span>`, `<span class="chip">Banco ${fmt(m.banco)}</span>`];
+  if (m.cont("feriado")) chips.push(`<span class="chip">${m.cont("feriado")} feriado(s)</span>`);
+  if (m.cont("folga_banco")) chips.push(`<span class="chip">${m.cont("folga_banco")} folga(s) banco</span>`);
+  if (m.cont("ferias")) chips.push(`<span class="chip">${m.cont("ferias")} dia(s) férias/afast.</span>`);
+  if (m.cont("previsto")) chips.push(`<span class="chip">${m.cont("previsto")} previsto(s)</span>`);
+  if (m.alertas) chips.push(`<span class="chip w">⚠ ${m.alertas} ponto(s) de atenção</span>`);
+  h += `<div class="card" id="cFolha"><div class="nav"><button id="ant" ${iMes === 0 ? "disabled" : ""} aria-label="Mês anterior">‹</button>
+    <div class="lab">${MESX[mm - 1]} de ${ma}<small>Folha de ponto do mês${m.temPrev ? " · com previsões" : ""}</small></div>
+    <button id="prox" ${iMes === c.meses.length - 1 ? "disabled" : ""} aria-label="Próximo mês">›</button></div>
+    <div class="chips">${chips.join("")}</div>
+    ${htmlFolha(c, m)}
+    <p class="leg">Horários em cinza com ^ são pré-assinalados pelo sistema (intervalo). * batida manual · ¨ abono parcial.
+    Hora a mais vale em dobro; dentro de ±${c.j.tol} min não conta. Linhas listradas são previsões pela sua anotação.</p></div>`;
+  h += `<div class="grid2"><div class="card"><h2>Saldo por dia <small>${MES[mm - 1]}/${ma}</small></h2>${grafDias(m)}</div>
     <div class="card"><h2>Evolução do banco de horas</h2>${grafBanco(c)}</div></div>`;
-  h += `<div class="card"><h2>Resumo mensal</h2><div style="overflow-x:auto"><table><tr><th>Mês</th><th class="r">Dias trab.</th>
+  h += `<div class="card"><h2>Resumo mensal <small>toque num mês para abrir a folha</small></h2><div style="overflow-x:auto"><table class="resumo"><tr><th>Mês</th><th class="r">Dias trab.</th>
     <th class="r">Horas</th><th class="r">Saldo</th><th class="r">Banco fim</th><th class="r">Folgas</th></tr>
-    ${[...c.meses].reverse().map(m => { const [a, mo] = m.k.split("-"); return `<tr><td>${MES[mo - 1]}/${a}</td><td class="r">${m.ndias}</td>
-      <td class="r">${fmt(m.trab, false)}</td><td class="r ${cls(m.saldo)}"><b>${fmt(m.saldo)}</b></td><td class="r">${fmt(m.banco)}</td>
-      <td class="r">${m.folgas}</td></tr>`; }).join("")}</table></div>
+    ${c.meses.map((x, i) => ({x, i})).reverse().map(({x, i}) => { const [a, mo] = x.k.split("-"); return `<tr data-m="${i}" class="${i === iMes ? "sel" : ""}"><td>${MES[mo - 1]}/${a}</td><td class="r">${x.ndias}</td>
+      <td class="r">${fmt(x.trab, false)}</td><td class="r ${cls(x.saldo)}"><b>${fmt(x.saldo)}</b></td><td class="r">${fmt(x.banco)}</td>
+      <td class="r">${x.cont("folga_banco")}</td></tr>`; }).join("")}</table></div>
     <p class="leg">Saldo e banco oficiais vêm do cartão ponto da empresa. Em caso de divergência, procure a supervisão da empresa.</p></div>`;
   v.innerHTML = h;
   ligarTip(v);
   if (colab) ligarHoje(c);
-  $("#ant").onclick = () => { iSem--; renderInd(true); };
-  $("#prox").onclick = () => { iSem++; renderInd(true); };
-  v.querySelectorAll("g[data-i]").forEach(g => g.addEventListener("click", () => { iSem = +g.dataset.i; renderInd(true); }));
-  const sc = $("#selCol"); if (sc) sc.onchange = () => { ATUAL = DADOS.colaboradores[+sc.value]; iSem = ATUAL.semanas.length - 1; renderInd(); };
-  let x0 = null; const area = v.querySelector(".dias");
-  area.addEventListener("touchstart", e => x0 = e.touches[0].clientX, {passive: true});
-  area.addEventListener("touchend", e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; x0 = null;
-    if (dx > 60 && iSem > 0) { iSem--; renderInd(true); } else if (dx < -60 && iSem < c.semanas.length - 1) { iSem++; renderInd(true); } });
+  $("#ant").onclick = () => { iMes--; renderInd(true); };
+  $("#prox").onclick = () => { iMes++; renderInd(true); };
+  v.querySelectorAll(".resumo tr[data-m]").forEach(tr => tr.onclick = () => { iMes = +tr.dataset.m; renderInd(true); $("#cFolha").scrollIntoView({behavior: "smooth"}); });
+  const sc = $("#selCol"); if (sc) sc.onchange = () => { ATUAL = DADOS.colaboradores[+sc.value]; iMes = ATUAL.meses.length - 1; renderInd(); };
   if (manterScroll) window.scrollTo(0, y);
 }
 
@@ -579,7 +609,10 @@ function renderEquipe() {
     <div class="kpi dest"><small>Colaboradores</small><b>${C.length}</b><span>com dados no painel</span></div>
     <div class="kpi"><small>Saldo da equipe</small><b class="${cls(somaSaldo)}">${fmt(somaSaldo)}</b><span>semana selecionada</span></div>
     <div class="kpi"><small>Banco acima de ${lim / 60}h</small><b class="${altos.length ? "neg" : "neu"}">${altos.length}</b><span>colaborador(es)</span></div>
-    <div class="kpi"><small>Banco total</small><b>${fmt(somaBanco)}</b><span>soma dos bancos</span></div></div>`;
+    <div class="kpi"><small>Pontos de atenção</small><b class="${al30.length ? "neg" : "neu"}">${al30.length}</b><span>últimos 30 dias</span></div></div>`;
+  h += `<div class="card ${al30.length ? "alerta-chefe" : ""}"><h2>⚠ Pontos de atenção <small>últimos 30 dias</small></h2>${al30.length ? `<ul class="lista">${al30
+    .sort((a, b) => b.d.dt - a.d.dt).map(({c, d}) => `<li><span><b>${dBr(d.dt, true)}</b> · ${esc(nomeBonito(c.nome))} — ${esc(d.a)}</span><span style="color:var(--sub)">${esc(d.b.join(" "))}</span></li>`).join("")}</ul>`
+    : "<p class='leg'>Nenhum alerta. 👍</p>"}</div>`;
   h += `<div class="grid2">
     <div class="card ${altos.length ? "alerta-chefe" : ""}"><h2>🔴 Banco acima de ${lim / 60}h <small>${altos.length} pessoa(s)</small></h2>
       ${altos.length ? `<ul class="lista">${altos.map(c => `<li><span>${esc(nomeBonito(c.nome))}</span><b class="neg">${fmt(c.bancoAtual)}</b></li>`).join("")}</ul>
@@ -605,9 +638,6 @@ function renderEquipe() {
       <div><small>Banco</small><b class="${alto ? "neg" : ""}">${fmt(c.bancoAtual)}</b></div></div></button>`;
   });
   h += `</div>`;
-  h += `<div class="card" style="margin-top:14px"><h2>Pontos de atenção <small>últimos 30 dias</small></h2>${al30.length ? `<ul class="lista">${al30
-    .sort((a, b) => b.d.dt - a.d.dt).map(({c, d}) => `<li><span><b>${dBr(d.dt, true)}</b> · ${esc(nomeBonito(c.nome))} — ${esc(d.a)}${d.b.length ? " (" + d.b.join(" ") + ")" : ""}</span></li>`).join("")}</ul>`
-    : "<p class='leg'>Nenhum alerta. 👍</p>"}</div>`;
   v.innerHTML = h;
   $("#ordem").value = ordem;
   $("#ordem").onchange = e => { ordem = e.target.value; renderEquipe(); };
