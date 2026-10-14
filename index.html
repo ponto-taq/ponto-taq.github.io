@@ -98,7 +98,7 @@ td{padding:9px 8px;border-bottom:1px solid #f1f3f6;font-variant-numeric:tabular-
 .hoje{background:linear-gradient(160deg,#fff,#f5f9ff);border:1.5px solid #dbeafe}
 .hoje .lin{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .hoje label{margin:0 0 5px}
-.campo{display:flex;gap:6px}.campo input{padding:11px 10px;font-size:17px;font-variant-numeric:tabular-nums}
+.campo{display:flex;gap:6px}.campo input{text-align:center;letter-spacing:.04em;font-weight:600;padding:11px 10px;font-size:17px;font-variant-numeric:tabular-nums}
 .agora{border:0;border-radius:12px;background:var(--azul2);color:#fff;font-weight:700;font-size:13px;padding:0 12px;white-space:nowrap}
 .prevbox{margin-top:14px;border-radius:14px;background:linear-gradient(135deg,var(--azul),var(--azul2));color:#fff;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .prevbox small{display:block;opacity:.85;font-size:12px;text-transform:uppercase;letter-spacing:.04em;font-weight:600}
@@ -430,8 +430,8 @@ function htmlHoje(c) {
       <input type="date" id="hDia" value="${diaHoje}" max="${hojeIso()}"></div></div>
     ${oficial ? `<p class="leg" style="margin:10px 0 0">✅ Este dia já tem registro oficial: ${esc(oficial.b.join(" · ") || TIPO[oficial.t] || "—")} (${fmt(oficial.s)}). Vale o oficial.</p>` : ""}
     <div class="lin" style="margin-top:10px">
-      <div><label for="hE">Entrada</label><div class="campo"><input type="time" id="hE" value="${a.e || ""}">${ehHoje ? '<button class="agora" data-c="e">Agora</button>' : ""}</div></div>
-      <div><label for="hS">Saída</label><div class="campo"><input type="time" id="hS" value="${a.s || ""}">${ehHoje ? '<button class="agora" data-c="s">Agora</button>' : ""}</div></div>
+      <div><label for="hE">Entrada</label><div class="campo"><input type="text" id="hE" class="hora" inputmode="numeric" autocomplete="off" placeholder="--:--" maxlength="5" value="${a.e || ""}">${ehHoje ? '<button class="agora" data-c="e">Agora</button>' : ""}</div></div>
+      <div><label for="hS">Saída</label><div class="campo"><input type="text" id="hS" class="hora" inputmode="numeric" autocomplete="off" placeholder="--:--" maxlength="5" value="${a.s || ""}">${ehHoje ? '<button class="agora" data-c="s">Agora</button>' : ""}</div></div>
     </div>
     ${c.j.int ? `<p class="leg" style="margin:6px 0 0">O intervalo de ${c.j.int} min é descontado automaticamente.</p>` : ""}
     ${prev}${mini}
@@ -444,12 +444,33 @@ function htmlHoje(c) {
 }
 function ligarHoje(c) {
   const salvar = () => {
-    const an = lerAnot(), e = $("#hE").value, s = $("#hS").value;
+    const ok = v => /^([01]\d|2[0-3]):[0-5]\d$/.test(v) ? v : "";
+    const an = lerAnot(), e = ok($("#hE").value), s = ok($("#hS").value);
     if (e || s) an[diaHoje] = {e, s}; else delete an[diaHoje];
     gravarAnot(an); preparar(c, true); iSem = c.semanas.length - 1; renderInd(true);
   };
   $("#hDia").onchange = e => { diaHoje = e.target.value || hojeIso(); renderInd(true); };
-  $("#hE").onchange = salvar; $("#hS").onchange = salvar;
+  // digitação com máscara: só salva quando a hora estiver completa (4 dígitos)
+  const valida = v => /^([01]\d|2[0-3]):[0-5]\d$/.test(v);
+  document.querySelectorAll("input.hora").forEach(inp => {
+    inp.addEventListener("input", () => {
+      let d = inp.value.replace(/\D/g, "").slice(0, 4);
+      inp.value = d.length > 2 ? d.slice(0, 2) + ":" + d.slice(2) : d;
+      inp.style.borderColor = "";
+      if (d.length === 4) {
+        if (!valida(inp.value)) { inp.style.borderColor = "var(--neg)"; return; }
+        const prox = inp.id === "hE" && !$("#hS").value;
+        salvar();
+        if (prox) $("#hS").focus();   // depois da entrada, vai direto para a saída
+      }
+    });
+    inp.addEventListener("blur", () => {
+      if (inp.value === "") { const an = lerAnot(); const k = inp.id === "hE" ? "e" : "s";
+        if (an[diaHoje] && an[diaHoje][k]) salvar(); }
+      else if (!valida(inp.value)) inp.style.borderColor = "var(--neg)";
+    });
+    inp.addEventListener("focus", () => inp.select());
+  });
   document.querySelectorAll(".agora").forEach(b => b.onclick = () => { $(b.dataset.c === "e" ? "#hE" : "#hS").value = hhmm(agoraMin()); salvar(); });
   const l = $("#hLimpar"); if (l) l.onclick = () => { if (confirm("Apagar a anotação deste dia?")) { $("#hE").value = ""; $("#hS").value = ""; salvar(); } };
   document.querySelectorAll("[data-ed]").forEach(b => b.onclick = () => { diaHoje = b.dataset.ed; renderInd(true); });
