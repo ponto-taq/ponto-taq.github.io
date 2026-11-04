@@ -21,8 +21,8 @@ background:radial-gradient(circle at 20% 10%,#2b7cc4 0,transparent 45%),linear-g
 .logo{width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,var(--azul),var(--azul2));display:grid;place-items:center;margin-bottom:14px}
 .lbox h1{margin:0 0 4px;font-size:22px}.lbox p{margin:0 0 22px;color:var(--sub);font-size:14px}
 label{display:block;font-size:13px;font-weight:600;margin:12px 0 6px;color:#374151}
-input,select{width:100%;padding:13px 14px;border:1.5px solid var(--bord);border-radius:12px;font-size:16px;background:#fff;color:var(--txt)}
-input:focus,select:focus{outline:none;border-color:var(--azul2);box-shadow:0 0 0 3px rgba(22,101,168,.15)}
+input,select,textarea{width:100%;padding:13px 14px;border:1.5px solid var(--bord);border-radius:12px;font-size:16px;background:#fff;color:var(--txt);font-family:inherit}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--azul2);box-shadow:0 0 0 3px rgba(22,101,168,.15)}
 .pw{position:relative}.pw button{position:absolute;right:8px;top:50%;transform:translateY(-50%);border:0;background:none;color:var(--sub);padding:6px}
 .btn{width:100%;margin-top:20px;padding:14px;border:0;border-radius:12px;background:linear-gradient(135deg,var(--azul),var(--azul2));color:#fff;font-weight:700;font-size:16px}
 .btn:disabled{opacity:.6}
@@ -40,7 +40,7 @@ padding:12px 16px;padding-top:max(12px,env(safe-area-inset-top));box-shadow:0 2p
 .tab.on{background:#fff;color:var(--azul)}
 main{max-width:1100px;margin:0 auto;padding:16px 14px 40px}
 .card{background:var(--card);border-radius:var(--r);padding:16px;box-shadow:0 1px 3px rgba(16,24,40,.06),0 1px 2px rgba(16,24,40,.04);margin-bottom:14px}
-.card h2{margin:0 0 12px;font-size:15px;color:var(--azul);display:flex;align-items:center;justify-content:space-between;gap:8px}
+.card h2{margin:0 0 12px;font-size:15px;color:var(--azul);display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
 .card h2 small{font-weight:500;color:var(--sub);font-size:12px}
 .pessoa{display:flex;gap:12px;align-items:center}
 .av{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,#dbeafe,#bfdbfe);color:var(--azul);display:grid;place-items:center;font-weight:800;flex:none}
@@ -60,7 +60,6 @@ main{max-width:1100px;margin:0 auto;padding:16px 14px 40px}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;justify-content:center}
 .chip{font-size:12px;padding:4px 10px;border-radius:999px;background:#eef2f7;color:#374151;font-weight:600}
 .chip.w{background:var(--warnbg);color:var(--warn)}.chip.p{background:var(--posbg);color:var(--pos)}.chip.n{background:var(--negbg);color:var(--neg)}
-/* ---------- folha mensal ---------- */
 .folha{overflow-x:auto;margin:14px -4px 0;-webkit-overflow-scrolling:touch}
 .folha table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:300px}
 .folha th{position:sticky;top:0;background:#eef2f7;color:#374151;font-size:11.5px;text-transform:uppercase;letter-spacing:.03em;
@@ -70,6 +69,7 @@ main{max-width:1100px;margin:0 auto;padding:16px 14px 40px}
 .folha td.d{text-align:left;font-weight:700}.folha td.d span{font-weight:600;color:var(--sub);font-size:11.5px;text-transform:uppercase;margin-left:4px}
 .folha td.r{text-align:right}
 .folha td.cod{color:#475569;font-weight:600;font-size:12.5px;letter-spacing:.02em}
+.folha td.falta{color:var(--warn);font-weight:700}
 .folha tr.fds td{background:#fafbfc;color:#9ca3af}
 .folha tr.fds td.d span{color:#cbd5e1}
 .folha tr.fim td{border-bottom:2px solid #dbe3ee}
@@ -77,7 +77,7 @@ main{max-width:1100px;margin:0 auto;padding:16px 14px 40px}
 .folha tr.hoje td{background:#eff6ff}
 .folha tr.prev td{background:repeating-linear-gradient(135deg,#f8fafc 0 8px,#f1f5f9 8px 16px);color:#475569;font-style:italic}
 .folha tr.al td{background:#fff7ed}
-.folha tr.nota td{padding:0 6px 7px;text-align:left;font-size:12px;border-bottom:1px solid #f1f3f6}
+.folha tr.nota td{padding:0 6px 7px;text-align:left;font-size:12px;border-bottom:1px solid #f1f3f6;white-space:normal}
 .folha tr.nota.al td{background:#fff7ed;color:var(--warn);font-weight:600}
 .folha tr.nota.pv td{background:#f8fafc;color:#64748b}
 .folha .pre{color:#94a3b8}
@@ -97,6 +97,8 @@ td{padding:9px 8px;border-bottom:1px solid #f1f3f6;font-variant-numeric:tabular-
 .tools input{flex:1;min-width:160px;padding:10px 12px;font-size:15px}
 .tools select{width:auto;padding:10px 12px;font-size:14px}
 .sbtn{border:1.5px solid var(--bord);background:#fff;border-radius:12px;padding:10px 14px;font-size:14px;font-weight:600;color:var(--azul)}
+.sbtn.pri{background:var(--azul2);border-color:var(--azul2);color:#fff}
+.sbtn:disabled{opacity:.5}
 .equipe{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
 .mem{background:#fff;border-radius:var(--r);padding:14px;box-shadow:0 1px 3px rgba(16,24,40,.06);border:1.5px solid transparent;text-align:left;width:100%;transition:.15s}
 .mem:hover{border-color:#bfdbfe;transform:translateY(-1px)}
@@ -105,9 +107,16 @@ td{padding:9px 8px;border-bottom:1px solid #f1f3f6;font-variant-numeric:tabular-
 .mem .h span{font-size:12px;color:var(--sub)}
 .mem .n{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
 .mem .n div small{display:block;font-size:11px;color:var(--sub)}.mem .n div b{font-size:16px;font-variant-numeric:tabular-nums}
-.lista li{padding:8px 0;border-bottom:1px solid #f1f3f6;font-size:14px;list-style:none;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.lista li{padding:8px 0;border-bottom:1px solid #f1f3f6;font-size:14px;list-style:none;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:center}
 .lista li:last-child{border-bottom:0}
 .lista{margin:0;padding:0}
+.lista li label.ck{display:flex;gap:8px;align-items:flex-start;margin:0;font-weight:400;font-size:14px;color:var(--txt);flex:1;min-width:0;cursor:pointer}
+.lista li label.ck input{width:18px;height:18px;padding:0;margin-top:2px;flex:none;accent-color:var(--azul2)}
+.sug{font-size:12.5px;color:var(--azul2);font-weight:600;white-space:nowrap}
+.ajbox{margin-top:12px;border:1.5px dashed #bfdbfe;border-radius:12px;padding:12px;background:#f8fbff}
+.ajbox textarea{font-size:14px;line-height:1.5;min-height:140px;resize:vertical}
+.ajbox .acoes{display:flex;gap:8px;margin-top:8px;align-items:center;flex-wrap:wrap}
+.ok{color:var(--pos);font-size:13px;font-weight:600}
 .leg{font-size:12px;color:var(--sub);line-height:1.6;margin-top:10px}
 .selcol{margin-bottom:14px}
 .hoje{background:linear-gradient(160deg,#fff,#f5f9ff);border:1.5px solid #dbeafe}
@@ -147,7 +156,7 @@ td{padding:9px 8px;border-bottom:1px solid #f1f3f6;font-variant-numeric:tabular-
     <button class="btn" id="entrar">Entrar</button>
     <div class="erro" id="erro"></div>
     <div class="nota">🔒 Seus dados são descriptografados apenas neste aparelho.</div>
-    <div class="versao">versão 3 · folha mensal</div>
+    <div class="versao">versão 4 · folha mensal · ajustes</div>
   </form>
 </section>
 
@@ -196,12 +205,61 @@ const iniciais = n => { const p = n.split(" ").filter(x => x.length > 2); return
 const TIPO = {feriado:"Feriado", folga_banco:"Folga (banco)", ferias:"Férias/afast.", sem_registro:"Sem registro", incompleto:"Incompleto"};
 const jorTxt = j => (j.min % 60 ? fmt(j.min, false) : (j.min / 60) + "h") + (j.int ? ` + ${j.int} min de intervalo` : " direto");
 const HORA_OK = v => /^([01]\d|2[0-3]):[0-5]\d$/.test(v);
+const AJUSTAVEIS = ["Batida incompleta", "Saída não registrada", "Entrada não registrada"];
 
 /* regra da CCT: dentro da tolerância = 0; hora a mais × fator; hora a menos × 1 */
 function saldoRegra(trab, j, fator) {
   const dif = trab - j.min;
   if (Math.abs(dif) <= j.tol) return 0;
   return dif > 0 ? dif * fator : dif;
+}
+
+/* ===== colunas das batidas (ENT.1=0, SAÍ.1=1, ENT.2=2, SAÍ.2=3) ===== */
+const mediana = a => { if (!a.length) return null; const s = [...a].sort((x, y) => x - y); return s[Math.floor(s.length / 2)]; };
+function horariosHabituais(c) {
+  const ent = [], sai = [];
+  c.dias.forEach(d => {
+    const r = d.b.filter(x => !x.endsWith("^"));
+    if (d.t === "trabalhado" && r.length >= 2) { ent.push(toMin(r[0])); sai.push(toMin(r[r.length - 1])); }
+  });
+  return {e: mediana(ent), s: mediana(sai)};
+}
+function slotsDe(c, d) {
+  if (Array.isArray(d.c) && d.c.length === d.b.length) return d.c;          // posição lida do PDF
+  if (d.b.length === 1) {                                                    // batida única: a mais parecida com o habitual
+    const t = toMin(d.b[0]), h = c.hab || {};
+    if (h.e != null && h.s != null) return [Math.abs(t - h.s) < Math.abs(t - h.e) ? 1 : 0];
+    return [0];
+  }
+  const ini = d.b.length && d.b[0].endsWith("^") ? 1 : 0;                   // começa no lanche -> faltou a entrada
+  return d.b.map((_, i) => Math.min(ini + i, 3));
+}
+/* Sugere o horário que falta para fechar a jornada do dia */
+function sugerirAjuste(c, d) {
+  if (!d.b.length) return null;
+  const s = slotsDe(c, d), cel = [null, null, null, null];
+  d.b.forEach((h, i) => { cel[s[i]] = toMin(h); });
+  let trab = 0, falta = null;
+  for (const [a, b] of [[0, 1], [2, 3]]) {
+    if (cel[a] != null && cel[b] != null) { let w = cel[b] - cel[a]; if (w < 0) w += 1440; trab += w; }
+    else if (cel[a] != null || cel[b] != null) {
+      if (falta) return null;
+      falta = cel[a] != null ? {tipo: "saída", base: cel[a], slot: b} : {tipo: "entrada", base: cel[b], slot: a};
+    }
+  }
+  if (!falta) {
+    // ex.: Hugo com "11:23 13:00^" -> faltou voltar do lanche e sair: saída = 13:00 + intervalo + restante
+    const ult = d.b[d.b.length - 1];
+    if (ult.endsWith("^") && c.j.int && cel[2] == null) {
+      const resto = c.j.min - trab;
+      if (resto > 0) return {tipo: "saída", hora: hhmm(cel[1] + c.j.int + resto)};
+    }
+    return null;
+  }
+  const outro = falta.slot < 2 ? (cel[2] != null || cel[3] != null) : (cel[0] != null || cel[1] != null);
+  const resto = c.j.min - trab + (outro ? 0 : c.j.int);
+  if (resto <= 0) return null;
+  return {tipo: falta.tipo, hora: hhmm(falta.tipo === "saída" ? falta.base + resto : falta.base - resto)};
 }
 
 /* criptografia */
@@ -238,16 +296,22 @@ function calcAnot(a, j, fator) {
 
 /* modelo de dados */
 function preparar(c, comAnot) {
-  if (!c.oficiais) c.oficiais = c.dias.map(d => {
-    const x = {...d, dt: dParse(d.d)};
-    // batida pré-assinalada (^) é do sistema: se o dia termina/começa nela, faltou a batida real
-    const hs = x.b.filter(h => /^\d\d:\d\d/.test(h));
-    if (hs.length && ["trabalhado", "incompleto"].includes(x.t)) {
-      if (hs[hs.length - 1].endsWith("^")) { x.t = "incompleto"; x.w = null; x.a = "Saída não registrada"; }
-      else if (hs[0].endsWith("^")) { x.t = "incompleto"; x.w = null; x.a = "Entrada não registrada"; }
-    }
-    return x;
-  });
+  if (!c.oficiais) {
+    c.hab = horariosHabituais(c);
+    c.oficiais = c.dias.map(d => {
+      const x = {...d, dt: dParse(d.d)};
+      const hs = x.b.filter(h => /^\d\d:\d\d/.test(h));
+      if (hs.length && ["trabalhado", "incompleto"].includes(x.t)) {
+        if (hs[hs.length - 1].endsWith("^")) { x.t = "incompleto"; x.w = null; x.a = "Saída não registrada"; }
+        else if (hs[0].endsWith("^")) { x.t = "incompleto"; x.w = null; x.a = "Entrada não registrada"; }
+      }
+      if (x.t === "incompleto") {
+        x.aj = sugerirAjuste(c, x);
+        if (x.a === "Batida incompleta" && x.aj) x.a = x.aj.tipo === "saída" ? "Saída não registrada" : "Entrada não registrada";
+      }
+      return x;
+    });
+  }
   const fator = (DADOS.regras && DADOS.regras.fator) || 2;
   const ofi = new Map(c.oficiais.map(d => [d.d, d]));
   const ultOfi = [...c.oficiais].reverse().find(d => d.bh !== null);
@@ -267,7 +331,7 @@ function preparar(c, comAnot) {
     const r = calcAnot(c.anot[k], c.j, fator); if (!r) return;
     banco += r.saldo;
     const a = c.anot[k];
-    dias.push({d: k, dt: dParse(k), b: [a.e, a.s], s: r.saldo, bh: banco, t: "previsto", w: r.trab, a: "", prev: true});
+    dias.push({d: k, dt: dParse(k), b: [a.e, a.s], c: [0, 1], s: r.saldo, bh: banco, t: "previsto", w: r.trab, a: "", prev: true});
   });
   dias.sort((x, y) => x.d.localeCompare(y.d));
   c.diasTodos = dias;
@@ -341,7 +405,6 @@ function iniciarApp() {
     document.querySelectorAll(".tab").forEach(t => t.onclick = () => mostrar(t.dataset.v));
     mostrar("equipe");
   } else {
-    // colaborador: só a visão individual, sem abas
     $("#hNome").textContent = nomeBonito(DADOS.nome);
     $("#tabs").classList.add("hide");
     document.querySelectorAll(".tab").forEach(t => t.onclick = null);
@@ -439,11 +502,17 @@ function htmlFolha(c, m) {
     let meio;
     if (COD[d.t]) meio = `<td colspan="4" class="cod">${COD[d.t]}</td>`;
     else if (!d.b.length) meio = `<td colspan="4"></td>`;
-    else { const b = d.b.slice(0, 4); while (b.length < 4) b.push(""); meio = b.map(x => `<td>${bat(x)}</td>`).join(""); }
+    else {
+      const cel = ["", "", "", ""], s = slotsDe(c, d);
+      d.b.forEach((h, j) => { cel[s[j]] = h; });
+      const vazioIdx = d.t === "incompleto" ? cel.map((v, j) => v ? -1 : j).filter(j => j >= 0) : [];
+      meio = cel.map((x, j) => x ? `<td>${bat(x)}</td>` : `<td class="${vazioIdx.includes(j) && d.aj ? "falta" : ""}"></td>`).join("");
+    }
     rows += `<tr class="${k.join(" ")}">${cDia}${meio}<td class="ctrab">${d.w ? fmt(d.w, false) : ""}</td>
       <td class="r ${cls(d.s)}"><b>${d.s ? fmt(d.s) : (fds && !d.b.length ? "" : "00:00")}</b></td><td class="r">${fmt(d.bh)}</td></tr>`;
     const notas = [];
-    if (d.a) notas.push(["al", "⚠ " + d.a + (d.b.length ? " (" + d.b.join(" ") + ")" : "")]);
+    if (d.a) notas.push(["al", "⚠ " + d.a + (d.b.length ? " (" + d.b.join(" ") + ")" : "") +
+      (d.aj ? ` · sugerido: ${d.aj.tipo} às ${d.aj.hora}` : "")]);
     if (d.div) notas.push(["al", "≠ " + d.div + ". Vale o registro oficial."]);
     if (d.prev) notas.push(["pv", "Previsto pela sua anotação. Será substituído pelo registro da empresa."]);
     notas.forEach(([t, n]) => rows += `<tr class="nota ${t} ${k.includes("fim") ? "fim" : ""}"><td colspan="8">${esc(n)}</td></tr>`);
@@ -508,7 +577,6 @@ function ligarHoje(c) {
     gravarAnot(an); preparar(c, true); iMes = mesDe(c, diaHoje); renderInd(true);
   };
   $("#hDia").onchange = e => { diaHoje = e.target.value || hojeIso(); renderInd(true); };
-  // digitação com máscara: só salva quando a hora estiver completa (4 dígitos)
   document.querySelectorAll("input.hora").forEach(inp => {
     inp.addEventListener("input", () => {
       const d = inp.value.replace(/\D/g, "").slice(0, 4);
@@ -518,7 +586,7 @@ function ligarHoje(c) {
         if (!HORA_OK(inp.value)) { inp.style.borderColor = "var(--neg)"; return; }
         const prox = inp.id === "hE" && !$("#hS").value;
         salvar();
-        if (prox) $("#hS").focus();   // depois da entrada, vai direto para a saída
+        if (prox) $("#hS").focus();
       }
     });
     inp.addEventListener("blur", () => {
@@ -594,6 +662,12 @@ function renderInd(manterScroll) {
   if (manterScroll) window.scrollTo(0, y);
 }
 
+/* ===== texto de solicitação de ajuste (só chefe) ===== */
+function textoAjuste(itens) {
+  const linhas = itens.map(({c, d}) => `${nomeBonito(c.nome)} – ${dBr(d.dt, true)} – marcação de ${d.aj.tipo} às ${d.aj.hora}`);
+  return "Solicito os seguintes ajustes no ponto:\n" + linhas.join("\n");
+}
+
 /* visão equipe (só chefe) */
 let ordem = "nome", busca = "", semEq = null;
 function renderEquipe() {
@@ -605,7 +679,9 @@ function renderEquipe() {
   if (!semEq || !todas.includes(semEq)) semEq = todas[todas.length - 1];
   const ini = dParse(semEq), fimSem = addD(ini, 6);
   const linhas = C.map(c => ({ c, s: c.semanas.find(s => dIso(s.ini) === semEq) }));
-  const al30 = C.flatMap(c => c.diasTodos.filter(d => d.a && (c.ultimoDia - d.dt) / 864e5 <= 30).map(d => ({c, d})));
+  const al30 = C.flatMap(c => c.diasTodos.filter(d => d.a && (c.ultimoDia - d.dt) / 864e5 <= 30).map(d => ({c, d})))
+    .sort((a, b) => b.d.dt - a.d.dt);
+  const ajustaveis = al30.filter(x => AJUSTAVEIS.includes(x.d.a) && x.d.aj);
   const somaSaldo = linhas.reduce((a, l) => a + (l.s ? l.s.saldo : 0), 0);
   const altos = C.filter(c => (c.bancoAtual || 0) > lim).sort((a, b) => b.bancoAtual - a.bancoAtual);
   const ultDado = new Date(Math.max(...C.map(c => c.ultimoDia || 0)));
@@ -621,9 +697,18 @@ function renderEquipe() {
     <div class="kpi"><small>Saldo da equipe</small><b class="${cls(somaSaldo)}">${fmt(somaSaldo)}</b><span>semana selecionada</span></div>
     <div class="kpi"><small>Banco acima de ${lim / 60}h</small><b class="${altos.length ? "neg" : "neu"}">${altos.length}</b><span>colaborador(es)</span></div>
     <div class="kpi"><small>Pontos de atenção</small><b class="${al30.length ? "neg" : "neu"}">${al30.length}</b><span>últimos 30 dias</span></div></div>`;
-  h += `<div class="card ${al30.length ? "alerta-chefe" : ""}"><h2>⚠ Pontos de atenção <small>últimos 30 dias</small></h2>${al30.length ? `<ul class="lista">${al30
-    .sort((a, b) => b.d.dt - a.d.dt).map(({c, d}) => `<li><span><b>${dBr(d.dt, true)}</b> · ${esc(nomeBonito(c.nome))} — ${esc(d.a)}</span><span style="color:var(--sub)">${esc(d.b.join(" "))}</span></li>`).join("")}</ul>`
-    : "<p class='leg'>Nenhum alerta. 👍</p>"}</div>`;
+  h += `<div class="card ${al30.length ? "alerta-chefe" : ""}"><h2>⚠ Pontos de atenção <small>últimos 30 dias</small>
+    ${ajustaveis.length ? `<button class="sbtn pri" id="btAjuste">📝 Gerar texto de ajuste</button>` : ""}</h2>
+    ${al30.length ? `<ul class="lista">${al30.map(({c, d}) => {
+      const ok = AJUSTAVEIS.includes(d.a) && d.aj;
+      const idx = ok ? ajustaveis.findIndex(x => x.d === d) : -1;
+      const txt = `<span><b>${dBr(d.dt, true)}</b> · ${esc(nomeBonito(c.nome))} — ${esc(d.a)}</span>`;
+      return `<li>${ok ? `<label class="ck"><input type="checkbox" class="selAj" data-i="${idx}" checked>${txt}</label>` : txt}
+        <span>${ok ? `<span class="sug">→ ${d.aj.tipo} ${d.aj.hora}</span> ` : ""}<span style="color:var(--sub)">${esc(d.b.join(" "))}</span></span></li>`;
+    }).join("")}</ul>` : "<p class='leg'>Nenhum alerta. 👍</p>"}
+    <div class="ajbox hide" id="ajBox"><textarea id="ajTxt"></textarea>
+      <div class="acoes"><button class="sbtn pri" id="ajCopiar">Copiar texto</button><span class="ok hide" id="ajOk">✔ Copiado</span></div>
+      <p class="leg" style="margin:6px 0 0">O horário sugerido completa a jornada de cada colaborador (6h, ou 8h + 30 min de intervalo para quem tem essa escala). Confira antes de enviar; dá para editar o texto acima.</p></div></div>`;
   h += `<div class="grid2">
     <div class="card ${altos.length ? "alerta-chefe" : ""}"><h2>🔴 Banco acima de ${lim / 60}h <small>${altos.length} pessoa(s)</small></h2>
       ${altos.length ? `<ul class="lista">${altos.map(c => `<li><span>${esc(nomeBonito(c.nome))}</span><b class="neg">${fmt(c.bancoAtual)}</b></li>`).join("")}</ul>
@@ -650,6 +735,22 @@ function renderEquipe() {
   });
   h += `</div>`;
   v.innerHTML = h;
+  // gerar texto de ajuste
+  const bt = $("#btAjuste");
+  if (bt) {
+    const gerar = () => {
+      const sel = [...v.querySelectorAll(".selAj")].filter(x => x.checked).map(x => ajustaveis[+x.dataset.i])
+        .sort((a, b) => a.c.nome.localeCompare(b.c.nome) || a.d.dt - b.d.dt);
+      $("#ajTxt").value = sel.length ? textoAjuste(sel) : "Nenhuma ocorrência selecionada.";
+    };
+    bt.onclick = () => { $("#ajBox").classList.remove("hide"); gerar(); $("#ajTxt").focus(); };
+    v.querySelectorAll(".selAj").forEach(x => x.onchange = () => { if (!$("#ajBox").classList.contains("hide")) gerar(); });
+    $("#ajCopiar").onclick = async () => {
+      const t = $("#ajTxt");
+      try { await navigator.clipboard.writeText(t.value); } catch (e) { t.select(); document.execCommand("copy"); }
+      $("#ajOk").classList.remove("hide"); setTimeout(() => $("#ajOk").classList.add("hide"), 2000);
+    };
+  }
   $("#ordem").value = ordem;
   $("#ordem").onchange = e => { ordem = e.target.value; renderEquipe(); };
   $("#busca").oninput = e => { busca = e.target.value; const p = e.target.selectionStart; renderEquipe(); const b = $("#busca"); b.focus(); b.setSelectionRange(p, p); };
